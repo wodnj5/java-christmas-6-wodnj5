@@ -2,40 +2,38 @@ package christmas.model;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Order {
 
-    private Map<Menu, Integer> order;
+    private final Map<Menu, Integer> order;
 
-    public Order(String[] orders) {
+    public Order(List<String> input) {
         order = new HashMap<>();
-        Arrays.stream(orders)
+        input.stream()
                 .map(order -> order.split("-"))
-                .forEach(menu -> order.put(validateMenu(menu[0]), Integer.parseInt(menu[1])));
+                .forEach(menu -> validateDistinctMenu(findMenu(menu[0]), Integer.parseInt(menu[1])));
         validateOnlyDrinks();
     }
 
-    private Menu validateMenu(String name) {
-        for(Menu menu : Menu.values()) {
-            if(menu.checkName(name)) {
-                return validateDistinctMenu(menu);
-            }
-        }
-        throw new IllegalArgumentException();
+    private Menu findMenu(String name) {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> menu.checkName(name))
+                .findFirst()
+                .orElseThrow(IllegalAccessError::new);
     }
 
-    private Menu validateDistinctMenu(Menu menu) {
+    private void validateDistinctMenu(Menu menu, int count) {
         if(order.containsKey(menu)) {
             throw new IllegalArgumentException();
         }
-        return menu;
+        order.put(menu, count);
     }
 
     private void validateOnlyDrinks() {
         if(order.keySet().stream()
-                .filter(menu -> menu.checkType(4))
-                .count() == order.size()) {
+                .allMatch(menu -> menu.checkType(4))) {
             throw new IllegalArgumentException();
         }
     }
