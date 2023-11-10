@@ -21,7 +21,7 @@ public class Order {
         return Arrays.stream(Menu.values())
                 .filter(menu -> menu.checkName(name))
                 .findFirst()
-                .orElseThrow(IllegalAccessError::new);
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     private void validateDistinctMenu(Menu menu, int count) {
