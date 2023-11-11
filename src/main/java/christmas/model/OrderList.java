@@ -27,15 +27,17 @@ public class OrderList {
     }
 
     public int calculateWeekDayEvent() {
-        return 2_023 * (int) orderList.keySet().stream()
+        return 2_023 * orderList.keySet().stream()
                 .filter(menu -> menu.typeEquals(3))
-                .count();
+                .mapToInt(orderList::get)
+                .sum();
     }
 
     public int calculateWeekEndEvent() {
-        return 2_023 * (int) orderList.keySet().stream()
+        return 2_023 * orderList.keySet().stream()
                 .filter(menu -> menu.typeEquals(2))
-                .count();
+                .mapToInt(orderList::get)
+                .sum();
     }
 
     @Override

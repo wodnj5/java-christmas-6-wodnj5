@@ -24,4 +24,9 @@ public class OutputView {
         System.out.println("<증정 상품>");
         System.out.println(output);
     }
+
+    public void printEventList(String output) {
+        System.out.println("<혜택 내역>");
+        System.out.println(output);
+    }
 }
