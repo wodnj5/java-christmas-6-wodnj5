@@ -32,4 +32,8 @@ public enum Menu {
     public boolean checkType(int type) {
         return this.type == type;
     }
+
+    public String getName() {
+        return name;
+    }
 }

@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Order {
 
@@ -15,6 +16,14 @@ public class Order {
                 .map(order -> order.split("-"))
                 .forEach(menu -> validateDistinctMenu(findMenu(menu[0]), Integer.parseInt(menu[1])));
         validateOnlyDrinks();
+    }
+
+    public Set<Menu> keySet() {
+        return order.keySet();
+    }
+
+    public int get(Menu menu) {
+        return order.get(menu);
     }
 
     private Menu findMenu(String name) {
