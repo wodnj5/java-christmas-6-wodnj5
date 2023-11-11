@@ -22,7 +22,7 @@ public class Gift {
     @Override
     public String toString() {
         if(menu == null) {
-            return "없음";
+            return "없음\n";
         }
         return String.format("%s %d개\n", menu.getName(), count);
     }
