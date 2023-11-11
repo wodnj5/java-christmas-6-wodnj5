@@ -30,4 +30,12 @@ public class OrderListTest {
         assertThatThrownBy(() -> new OrderList(List.of("제로콜라-1", "토마토파스타-1", "해산물파스타-2")))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("20개 이상의 메뉴를 주문하면 예외를 발생한다.")
+    @Test
+    void createOrderByTooManyMenu() {
+
+        assertThatThrownBy(() -> new OrderList(List.of("제로콜라-7", "크리스마스파스타-8", "해산물파스타-8")))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 }

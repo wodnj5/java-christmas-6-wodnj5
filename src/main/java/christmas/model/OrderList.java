@@ -13,6 +13,7 @@ public class OrderList {
         input.stream()
                 .map(order -> order.split("-"))
                 .forEach(menu -> orderList.put(validateDistinctMenu(Menu.findMenu(menu[0])), Integer.parseInt(menu[1])));
+        validateOrderCount();
         validateOnlyDrinks();
     }
 
@@ -23,6 +24,18 @@ public class OrderList {
 
     public String getTotalPrice() {
         return String.format("%,d원\n", totalPrice());
+    }
+
+    public int calculateWeekDayEvent() {
+        return 2_023 * (int) orderList.keySet().stream()
+                .filter(menu -> menu.typeEquals(3))
+                .count();
+    }
+
+    public int calculateWeekEndEvent() {
+        return 2_023 * (int) orderList.keySet().stream()
+                .filter(menu -> menu.typeEquals(2))
+                .count();
     }
 
     @Override
@@ -37,6 +50,14 @@ public class OrderList {
             throw new IllegalArgumentException();
         }
         return menu;
+    }
+
+    private void validateOrderCount() {
+        if(orderList.keySet().stream()
+                .mapToInt(orderList::get)
+                .sum() > 20) {
+            throw new IllegalArgumentException();
+        }
     }
 
     private void validateOnlyDrinks() {
