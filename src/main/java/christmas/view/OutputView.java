@@ -21,7 +21,7 @@ public class OutputView {
     }
 
     public void printGift(String output) {
-        System.out.println("<증정 상품>");
+        System.out.println("<증정 메뉴>");
         System.out.println(output);
     }
 
@@ -37,6 +37,11 @@ public class OutputView {
 
     public void printEstimatedPrice(String output) {
         System.out.println("<할인 후 예상 결제 금액>");
+        System.out.println(output);
+    }
+
+    public void printBadge(String output) {
+        System.out.println("<12월 이벤트 배지>");
         System.out.println(output);
     }
 }

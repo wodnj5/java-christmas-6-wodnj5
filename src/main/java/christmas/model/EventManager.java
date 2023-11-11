@@ -16,9 +16,9 @@ public class EventManager {
     private final Gift gift;
 
     public EventManager(Today today, OrderList orderList, Gift gift) {
-        eventList = new TreeMap<>();
         this.orderList = orderList;
         this.gift = gift;
+        eventList = new TreeMap<>();
         if(validateTotalPrice()) {
             addEvent(today);
         }
@@ -30,6 +30,10 @@ public class EventManager {
 
     public String estimatedPrice() {
         return String.format("%,d원\n", calculateEstimatedPrice());
+    }
+
+    public String badge() {
+        return String.format("%s", sortBadge().getName());
     }
 
     @Override
@@ -77,5 +81,9 @@ public class EventManager {
             sum += gift.getMenuPrice();
         }
         return sum;
+    }
+
+    private Badge sortBadge() {
+        return Badge.findBadge(calculateTotalDiscount());
     }
 }
