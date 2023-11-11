@@ -11,7 +11,7 @@ public class OutputView {
         System.out.println(output);
     }
 
-    public void printEventPreview() {
+    public void printEventPreviewStart() {
         System.out.println("12월 3일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
     }
 
@@ -27,6 +27,16 @@ public class OutputView {
 
     public void printEventList(String output) {
         System.out.println("<혜택 내역>");
+        System.out.println(output);
+    }
+
+    public void printTotalDiscount(String output) {
+        System.out.println("<총혜택 금액>");
+        System.out.println(output);
+    }
+
+    public void printEstimatedPrice(String output) {
+        System.out.println("<할인 후 예상 결제 금액>");
         System.out.println(output);
     }
 }

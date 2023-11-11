@@ -4,19 +4,26 @@ import static christmas.model.Menu.CHAMPAGNE;
 
 public class Gift {
 
-    private final Menu menu;
+    private Menu menu;
     private int count;
 
     public Gift(int totalPrice) {
-        menu = validate(totalPrice);
+        if(validate(totalPrice)) {
+            menu = CHAMPAGNE;
+            count = 1;
+        }
     }
 
-    private Menu validate(int totalPrice) {
-        if(totalPrice >= 120_000) {
-            count = 1;
-            return CHAMPAGNE;
-        }
-        return null;
+    public boolean isEmpty() {
+        return menu == null;
+    }
+
+    public int getMenuPrice() {
+        return menu.getPrice();
+    }
+
+    private boolean validate(int totalPrice) {
+        return totalPrice >= 120_000;
     }
 
     @Override

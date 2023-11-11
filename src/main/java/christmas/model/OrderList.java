@@ -17,13 +17,13 @@ public class OrderList {
         validateOnlyDrinks();
     }
 
-    public int totalPrice() {
+    public int calculateTotalPrice() {
         return orderList.keySet().stream()
                 .mapToInt(menu -> menu.getPrice() * orderList.get(menu)).sum();
     }
 
-    public String getTotalPrice() {
-        return String.format("%,d원\n", totalPrice());
+    public String totalPrice() {
+        return String.format("%,d원\n", calculateTotalPrice());
     }
 
     public int calculateWeekDayEvent() {
