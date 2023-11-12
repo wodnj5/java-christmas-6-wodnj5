@@ -2,7 +2,7 @@ package christmas.model;
 
 public enum Menu {
 
-    BUTTON_MUSH_ROOM_SOUP("양송이수프 ", 1, 6_000),
+    BUTTON_MUSH_ROOM_SOUP("양송이수프", 1, 6_000),
     TAPAS("타파스", 1, 5_500),
     CAESAR_SALAD("시저샐러드", 1, 8_000),
     T_BONE_STEAK("티본스테이크", 2, 55_000),

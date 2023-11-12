@@ -4,66 +4,66 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Order {
-    private final Map<Menu, Integer> order;
+public class OrderList {
+    private final Map<Menu, Integer> orderList;
 
-    public Order(List<String> input) {
-        order = new TreeMap<>();
+    public OrderList(List<String> input) {
+        orderList = new TreeMap<>();
         input.stream()
-                .map(order -> order.split("-"))
+                .map(str -> str.split("-"))
                 .forEach(menu -> addMenu(menu[0], Integer.parseInt(menu[1])));
         validateOrderCount();
         validateOnlyDrinks();
     }
 
     public int totalPrice() {
-        return order.keySet().stream()
-                .mapToInt(menu -> menu.getPrice() * order.get(menu)).sum();
+        return orderList.keySet().stream()
+                .mapToInt(menu -> menu.getPrice() * orderList.get(menu)).sum();
     }
 
     public int numberOfDessert() {
-        return order.keySet().stream()
+        return orderList.keySet().stream()
                 .filter(menu -> menu.typeEquals(3))
-                .mapToInt(order::get)
+                .mapToInt(orderList::get)
                 .sum();
     }
 
     public int numberOfMainMenu() {
-        return order.keySet().stream()
+        return orderList.keySet().stream()
                 .filter(menu -> menu.typeEquals(2))
-                .mapToInt(order::get)
+                .mapToInt(orderList::get)
                 .sum();
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        order.keySet().forEach(menu -> sb.append(String.format("%s %d개\n", menu.getName(), order.get(menu))));
+        orderList.keySet().forEach(menu -> sb.append(String.format("%s %d개\n", menu.getName(), orderList.get(menu))));
         return sb.toString();
     }
 
     private void addMenu(String name, int count) {
         Menu menu = Menu.findMenuByName(name);
-        order.put(validateDistinctMenu(menu), count);
+        orderList.put(validateDistinctMenu(menu), count);
     }
 
     private Menu validateDistinctMenu(Menu menu) {
-        if(order.containsKey(menu)) {
+        if(orderList.containsKey(menu)) {
             throw new IllegalArgumentException();
         }
         return menu;
     }
 
     private void validateOrderCount() {
-        if(order.keySet().stream()
-                .mapToInt(order::get)
+        if(orderList.keySet().stream()
+                .mapToInt(orderList::get)
                 .sum() > 20) {
             throw new IllegalArgumentException();
         }
     }
 
     private void validateOnlyDrinks() {
-        if(order.keySet().stream()
+        if(orderList.keySet().stream()
                 .allMatch(menu -> menu.typeEquals(4))) {
             throw new IllegalArgumentException();
         }

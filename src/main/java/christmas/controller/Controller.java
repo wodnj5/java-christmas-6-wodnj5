@@ -2,7 +2,7 @@ package christmas.controller;
 
 import christmas.model.EventManager;
 import christmas.model.Gift;
-import christmas.model.Order;
+import christmas.model.OrderList;
 import christmas.model.Today;
 import christmas.view.ErrorMessage;
 import christmas.view.InputView;
@@ -14,7 +14,7 @@ public class Controller {
     private OutputView outputView;
     private ErrorMessage errorMessage;
     private Today today;
-    private Order order;
+    private OrderList orderList;
     private Gift gift;
     private EventManager eventManager;
 
@@ -34,7 +34,7 @@ public class Controller {
     private void input() {
         outputView.printHello();
         today = initToday();
-        order = initOrder();
+        orderList = initOrder();
     }
 
     private void calculate() {
@@ -44,8 +44,8 @@ public class Controller {
 
     private void preview() {
         outputView.printEventPreviewStart();
-        outputView.printOrderList(order.toString());
-        outputView.printTotalPrice(order.totalPrice());
+        outputView.printOrderList(orderList.toString());
+        outputView.printTotalPrice(orderList.totalPrice());
         outputView.printGift(gift.toString());
         outputView.printEventList(eventManager.toString());
         outputView.printTotalDiscount(eventManager.totalDiscount());
@@ -74,9 +74,9 @@ public class Controller {
         }
     }
 
-    private Order initOrder() {
+    private OrderList initOrder() {
         try {
-            return new Order(inputView.inputOrders());
+            return new OrderList(inputView.inputOrders());
         } catch (IllegalArgumentException e) {
             errorMessage.printOrderFormatError();
             return initOrder();
@@ -84,10 +84,10 @@ public class Controller {
     }
 
     private Gift initGift() {
-        return new Gift(order.totalPrice());
+        return new Gift(orderList.totalPrice());
     }
 
     private EventManager initEventManager() {
-        return new EventManager(today, order, gift);
+        return new EventManager(today, orderList, gift);
     }
 }

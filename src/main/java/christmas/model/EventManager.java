@@ -13,12 +13,12 @@ public class EventManager {
 
     private final Map<Event, Integer> eventList;
     private final Today today;
-    private final Order order;
+    private final OrderList orderList;
     private final Gift gift;
 
-    public EventManager(Today today, Order order, Gift gift) {
+    public EventManager(Today today, OrderList orderList, Gift gift) {
         this.today = today;
-        this.order = order;
+        this.orderList = orderList;
         this.gift = gift;
         eventList = new TreeMap<>();
         if(validateTotalPrice()) {
@@ -33,7 +33,7 @@ public class EventManager {
     }
 
     public int estimatedPrice() {
-        int sum = order.totalPrice() - totalDiscount();
+        int sum = orderList.totalPrice() - totalDiscount();
         if(!gift.isEmpty()) {
             sum += gift.giftPrice();
         }
@@ -56,7 +56,7 @@ public class EventManager {
     }
 
     private boolean validateTotalPrice() {
-        return order.totalPrice() >= 10_000;
+        return orderList.totalPrice() >= 10_000;
     }
 
     private void addEvent() {
@@ -75,13 +75,13 @@ public class EventManager {
 
     private void addWeekDayEvent() {
         if(today.isWeekDayEvent()) {
-            eventList.put(WEEKDAY_EVENT, 2_023 * order.numberOfDessert());
+            eventList.put(WEEKDAY_EVENT, 2_023 * orderList.numberOfDessert());
         }
     }
 
     private void addWeekEndEvent() {
         if(today.isWeekEndEvent()) {
-            eventList.put(WEEKEND_EVENT, 2_023 * order.numberOfMainMenu());
+            eventList.put(WEEKEND_EVENT, 2_023 * orderList.numberOfMainMenu());
         }
     }
 
