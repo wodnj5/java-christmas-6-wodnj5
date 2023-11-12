@@ -2,8 +2,9 @@ package christmas.controller;
 
 import christmas.model.EventManager;
 import christmas.model.Gift;
-import christmas.model.OrderList;
+import christmas.model.Order;
 import christmas.model.Today;
+import christmas.view.ErrorMessage;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
@@ -11,8 +12,9 @@ public class Controller {
 
     private InputView inputView;
     private OutputView outputView;
+    private ErrorMessage errorMessage;
     private Today today;
-    private OrderList orderList;
+    private Order order;
     private Gift gift;
     private EventManager eventManager;
 
@@ -24,73 +26,68 @@ public class Controller {
     }
 
     private void start() {
-        inputView = inputView();
-        outputView = outputView();
+        inputView = initInputView();
+        outputView = initOutputView();
+        errorMessage = initErrorMessage();
     }
 
     private void input() {
         outputView.printHello();
-        today = today();
-        orderList = orderList();
+        today = initToday();
+        order = initOrder();
     }
 
     private void calculate() {
-        gift = gift();
-        eventManager = eventManager();
+        gift = initGift();
+        eventManager = initEventManager();
     }
 
     private void preview() {
         outputView.printEventPreviewStart();
-        orderListDetails();
-        giftDetails();
-        eventDetails();
-    }
-
-    private void orderListDetails() {
-        outputView.printOrderList(orderList.toString());
-        outputView.printTotalPrice(orderList.totalPrice());
-    }
-
-    private void giftDetails() {
+        outputView.printOrderList(order.toString());
+        outputView.printTotalPrice(order.totalPrice());
         outputView.printGift(gift.toString());
-    }
-
-    private void eventDetails() {
         outputView.printEventList(eventManager.toString());
         outputView.printTotalDiscount(eventManager.totalDiscount());
         outputView.printEstimatedPrice(eventManager.estimatedPrice());
         outputView.printBadge(eventManager.badge());
     }
 
-    private InputView inputView() {
+    private InputView initInputView() {
         return new InputView();
     }
 
-    private OutputView outputView() {
+    private OutputView initOutputView() {
         return new OutputView();
     }
 
-    private Today today() {
+    private ErrorMessage initErrorMessage() {
+        return new ErrorMessage();
+    }
+
+    private Today initToday() {
         try {
             return new Today(inputView.inputDate());
         } catch (IllegalArgumentException e) {
-            return today();
+            errorMessage.printDateFormatError();
+            return initToday();
         }
     }
 
-    private OrderList orderList() {
+    private Order initOrder() {
         try {
-            return new OrderList(inputView.inputOrders());
+            return new Order(inputView.inputOrders());
         } catch (IllegalArgumentException e) {
-            return orderList();
+            errorMessage.printOrderFormatError();
+            return initOrder();
         }
     }
 
-    private Gift gift() {
-        return new Gift(orderList.calculateTotalPrice());
+    private Gift initGift() {
+        return new Gift(order.calculateTotalPrice());
     }
 
-    private EventManager eventManager() {
-        return new EventManager(today, orderList, gift);
+    private EventManager initEventManager() {
+        return new EventManager(today, order, gift);
     }
 }

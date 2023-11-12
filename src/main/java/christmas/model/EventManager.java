@@ -12,15 +12,17 @@ import java.util.TreeMap;
 public class EventManager {
 
     private final Map<Event, Integer> eventList;
-    private final OrderList orderList;
+    private final Today today;
+    private final Order order;
     private final Gift gift;
 
-    public EventManager(Today today, OrderList orderList, Gift gift) {
-        this.orderList = orderList;
+    public EventManager(Today today, Order order, Gift gift) {
+        this.today = today;
+        this.order = order;
         this.gift = gift;
         eventList = new TreeMap<>();
         if(validateTotalPrice()) {
-            addEvent(today);
+            addEvent();
         }
     }
 
@@ -48,22 +50,42 @@ public class EventManager {
     }
 
     private boolean validateTotalPrice() {
-        return orderList.calculateTotalPrice() >= 10_000;
+        return order.calculateTotalPrice() >= 10_000;
     }
 
-    private void addEvent(Today today) {
+    private void addEvent() {
+        addDDayEvent();
+        addWeekDayEvent();
+        addWeekEndEvent();
+        addSpecialEvent();
+        addGiftEvent();
+    }
+
+    private void addDDayEvent() {
         if(today.isDDayEvent()) {
             eventList.put(DDAY_EVENT, today.calculateDDayEvent());
         }
+    }
+
+    private void addWeekDayEvent() {
         if(today.isWeekDayEvent()) {
-            eventList.put(WEEKDAY_EVENT, orderList.calculateWeekDayEvent());
+            eventList.put(WEEKDAY_EVENT, 2_023 * order.numberOfDessert());
         }
+    }
+
+    private void addWeekEndEvent() {
         if(today.isWeekEndEvent()) {
-            eventList.put(WEEKEND_EVENT, orderList.calculateWeekEndEvent());
+            eventList.put(WEEKEND_EVENT, 2_023 * order.numberOfMainMenu());
         }
+    }
+
+    private void addSpecialEvent() {
         if(today.isSpecialEvent()) {
             eventList.put(SPECIAL_EVENT, 1000);
         }
+    }
+
+    private void addGiftEvent() {
         if(!gift.isEmpty()) {
             eventList.put(GIFT_EVENT, gift.getMenuPrice());
         }
@@ -76,7 +98,7 @@ public class EventManager {
     }
 
     private int calculateEstimatedPrice() {
-        int sum = orderList.calculateTotalPrice() - calculateTotalDiscount();
+        int sum = order.calculateTotalPrice() - calculateTotalDiscount();
         if(!gift.isEmpty()) {
             sum += gift.getMenuPrice();
         }

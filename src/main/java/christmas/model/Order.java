@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class OrderList {
+public class Order {
 
     private final Map<Menu, Integer> orderList;
 
-    public OrderList(List<String> input) {
+    public Order(List<String> input) {
         orderList = new TreeMap<>();
         input.stream()
                 .map(order -> order.split("-"))
-                .forEach(menu -> orderList.put(validateDistinctMenu(Menu.findMenu(menu[0])), Integer.parseInt(menu[1])));
+                .forEach(menu -> orderList.put(validateDistinctMenu(Menu.findMenuByName(menu[0])), Integer.parseInt(menu[1])));
         validateOrderCount();
         validateOnlyDrinks();
     }
@@ -26,15 +26,15 @@ public class OrderList {
         return String.format("%,d원\n", calculateTotalPrice());
     }
 
-    public int calculateWeekDayEvent() {
-        return 2_023 * orderList.keySet().stream()
+    public int numberOfDessert() {
+        return orderList.keySet().stream()
                 .filter(menu -> menu.typeEquals(3))
                 .mapToInt(orderList::get)
                 .sum();
     }
 
-    public int calculateWeekEndEvent() {
-        return 2_023 * orderList.keySet().stream()
+    public int numberOfMainMenu() {
+        return orderList.keySet().stream()
                 .filter(menu -> menu.typeEquals(2))
                 .mapToInt(orderList::get)
                 .sum();

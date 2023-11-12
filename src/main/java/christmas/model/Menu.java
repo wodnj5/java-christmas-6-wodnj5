@@ -1,7 +1,5 @@
 package christmas.model;
 
-import java.util.Arrays;
-
 public enum Menu {
 
     BUTTON_MUSH_ROOM_SOUP("양송이수프 ", 1, 6_000),
@@ -27,11 +25,13 @@ public enum Menu {
         this.price = price;
     }
 
-    public static Menu findMenu(String name) {
-        return Arrays.stream(Menu.values())
-                .filter(menu -> menu.nameEquals(name))
-                .findFirst()
-                .orElseThrow(IllegalArgumentException::new);
+    public static Menu findMenuByName(String name) {
+        for(Menu menu : Menu.values()) {
+            if(menu.nameEquals(name)) {
+                return menu;
+            }
+        }
+        throw new IllegalArgumentException();
     }
 
     public boolean typeEquals(int type) {
