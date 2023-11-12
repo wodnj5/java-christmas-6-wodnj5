@@ -15,6 +15,10 @@ public class Today {
                 .getValue();
     }
 
+    public int getDate() {
+        return date;
+    }
+
     public boolean isDDayEvent() {
         return date <= 25;
     }
@@ -29,10 +33,6 @@ public class Today {
 
     public boolean isSpecialEvent() {
         return day == 7 || date == 25;
-    }
-
-    public int calculateDDayEvent() {
-        return 1000 + (date - 1) * 100;
     }
 
     private void validate(int date) {

@@ -27,7 +27,7 @@ public enum Menu {
 
     public static Menu findMenuByName(String name) {
         for(Menu menu : Menu.values()) {
-            if(menu.nameEquals(name)) {
+            if(menu.name.equals(name)) {
                 return menu;
             }
         }
@@ -36,10 +36,6 @@ public enum Menu {
 
     public boolean typeEquals(int type) {
         return this.type == type;
-    }
-
-    public boolean nameEquals(String name) {
-        return this.name.equals(name);
     }
 
     public String getName() {

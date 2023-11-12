@@ -26,16 +26,22 @@ public class EventManager {
         }
     }
 
-    public String totalDiscount() {
-        return String.format("-%,d원\n", calculateTotalDiscount());
+    public int totalDiscount() {
+        return eventList.keySet().stream()
+                .mapToInt(eventList::get)
+                .sum();
     }
 
-    public String estimatedPrice() {
-        return String.format("%,d원\n", calculateEstimatedPrice());
+    public int estimatedPrice() {
+        int sum = order.totalPrice() - totalDiscount();
+        if(!gift.isEmpty()) {
+            sum += gift.getMenuPrice();
+        }
+        return sum;
     }
 
-    public String badge() {
-        return String.format("%s", sortBadge().getName());
+    public String eventBadge() {
+        return Badge.setBadge(totalDiscount()).toString();
     }
 
     @Override
@@ -50,7 +56,7 @@ public class EventManager {
     }
 
     private boolean validateTotalPrice() {
-        return order.calculateTotalPrice() >= 10_000;
+        return order.totalPrice() >= 10_000;
     }
 
     private void addEvent() {
@@ -63,7 +69,7 @@ public class EventManager {
 
     private void addDDayEvent() {
         if(today.isDDayEvent()) {
-            eventList.put(DDAY_EVENT, today.calculateDDayEvent());
+            eventList.put(DDAY_EVENT, 1000 + (today.getDate() - 1) * 100);
         }
     }
 
@@ -86,26 +92,8 @@ public class EventManager {
     }
 
     private void addGiftEvent() {
-        if(!gift.isEmpty()) {
+        if (!gift.isEmpty()) {
             eventList.put(GIFT_EVENT, gift.getMenuPrice());
         }
-    }
-
-    private int calculateTotalDiscount() {
-        return eventList.keySet().stream()
-                .mapToInt(eventList::get)
-                .sum();
-    }
-
-    private int calculateEstimatedPrice() {
-        int sum = order.calculateTotalPrice() - calculateTotalDiscount();
-        if(!gift.isEmpty()) {
-            sum += gift.getMenuPrice();
-        }
-        return sum;
-    }
-
-    private Badge sortBadge() {
-        return Badge.findBadge(calculateTotalDiscount());
     }
 }

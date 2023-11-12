@@ -50,7 +50,7 @@ public class Controller {
         outputView.printEventList(eventManager.toString());
         outputView.printTotalDiscount(eventManager.totalDiscount());
         outputView.printEstimatedPrice(eventManager.estimatedPrice());
-        outputView.printBadge(eventManager.badge());
+        outputView.printBadge(eventManager.eventBadge());
     }
 
     private InputView initInputView() {
@@ -84,7 +84,7 @@ public class Controller {
     }
 
     private Gift initGift() {
-        return new Gift(order.calculateTotalPrice());
+        return new Gift(order.totalPrice());
     }
 
     private EventManager initEventManager() {

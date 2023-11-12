@@ -13,7 +13,7 @@ public enum Badge {
         this.name = name;
     }
 
-    public static Badge findBadge(int totalDiscountPrice) {
+    public static Badge setBadge(int totalDiscountPrice) {
         if(totalDiscountPrice >= 5_000 && totalDiscountPrice < 10_000) {
             return STAR;
         }
@@ -26,7 +26,8 @@ public enum Badge {
         return NONE;
     }
 
-    public String getName() {
+    @Override
+    public String toString() {
         return name;
     }
 }

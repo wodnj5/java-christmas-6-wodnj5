@@ -15,9 +15,9 @@ public class OutputView {
         System.out.println("12월 3일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
     }
 
-    public void printTotalPrice(String output) {
+    public void printTotalPrice(int output) {
         System.out.println("<할인 전 총주문 금액>");
-        System.out.println(output);
+        System.out.printf("%,d원\n" ,output);
     }
 
     public void printGift(String output) {
@@ -30,14 +30,14 @@ public class OutputView {
         System.out.println(output);
     }
 
-    public void printTotalDiscount(String output) {
+    public void printTotalDiscount(int output) {
         System.out.println("<총혜택 금액>");
-        System.out.println(output);
+        System.out.printf("-%,d원\n", output);
     }
 
-    public void printEstimatedPrice(String output) {
+    public void printEstimatedPrice(int output) {
         System.out.println("<할인 후 예상 결제 금액>");
-        System.out.println(output);
+        System.out.printf("%,d원\n", output);
     }
 
     public void printBadge(String output) {
