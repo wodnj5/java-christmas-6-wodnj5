@@ -8,13 +8,13 @@ public enum Event {
     SPECIAL_EVENT("특별 할인"),
     GIFT_EVENT("증정 이벤트");
 
-    private final String name;
+    private final String message;
 
-    Event(String name) {
-        this.name = name;
+    Event(String message) {
+        this.message = message;
     }
 
-    public String getName() {
-        return name;
+    public String getMessage() {
+        return message;
     }
 }

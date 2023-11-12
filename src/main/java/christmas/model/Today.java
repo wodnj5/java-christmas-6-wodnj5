@@ -4,13 +4,15 @@ import java.time.LocalDate;
 
 public class Today {
 
+    private static final int YEAR = 2023;
+    private static final int MONTH = 12;
     private final int date;
     private final int day;
 
     public Today(int date) {
         validate(date);
         this.date = date;
-        day = LocalDate.of(2023, 12, date)
+        day = LocalDate.of(YEAR, MONTH, date)
                 .getDayOfWeek()
                 .getValue();
     }

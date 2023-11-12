@@ -13,17 +13,17 @@ public enum Badge {
         this.name = name;
     }
 
-    public static Badge setBadge(int totalDiscountPrice) {
+    public static String classifyBadge(int totalDiscountPrice) {
         if(totalDiscountPrice >= 5_000 && totalDiscountPrice < 10_000) {
-            return STAR;
+            return STAR.name;
         }
         if(totalDiscountPrice >= 10_000 && totalDiscountPrice < 20_000) {
-            return TREE;
+            return TREE.name;
         }
         if(totalDiscountPrice >= 20_000) {
-            return SANTA;
+            return SANTA.name;
         }
-        return NONE;
+        return NONE.name;
     }
 
     @Override

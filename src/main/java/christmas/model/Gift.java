@@ -18,7 +18,7 @@ public class Gift {
         return menu == null;
     }
 
-    public int getMenuPrice() {
+    public int giftPrice() {
         return menu.getPrice();
     }
 

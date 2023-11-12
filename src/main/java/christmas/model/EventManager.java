@@ -35,13 +35,13 @@ public class EventManager {
     public int estimatedPrice() {
         int sum = order.totalPrice() - totalDiscount();
         if(!gift.isEmpty()) {
-            sum += gift.getMenuPrice();
+            sum += gift.giftPrice();
         }
         return sum;
     }
 
     public String eventBadge() {
-        return Badge.setBadge(totalDiscount()).toString();
+        return Badge.classifyBadge(totalDiscount());
     }
 
     @Override
@@ -51,7 +51,7 @@ public class EventManager {
         }
         StringBuilder sb = new StringBuilder();
         eventList.keySet()
-                .forEach(event -> sb.append(String.format("%s: -%,d원\n", event.getName(), eventList.get(event))));
+                .forEach(event -> sb.append(String.format("%s: -%,d원\n", event.getMessage(), eventList.get(event))));
         return sb.toString();
     }
 
@@ -93,7 +93,7 @@ public class EventManager {
 
     private void addGiftEvent() {
         if (!gift.isEmpty()) {
-            eventList.put(GIFT_EVENT, gift.getMenuPrice());
+            eventList.put(GIFT_EVENT, gift.giftPrice());
         }
     }
 }
