@@ -39,7 +39,7 @@ public class EventManagerTest {
         }
     }
 
-    @DisplayName("주문에 따라 총 할인 혜택을 출력한다.")
+    @DisplayName("주문에 따라 할인된 예상 결제 금액을 출력한다.")
     @Test
     void calculateEstimatedPriceTest() {
         int[] results = {131_954, 80_600, 67_054};
