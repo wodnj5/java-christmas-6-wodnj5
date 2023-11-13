@@ -1,6 +1,6 @@
 package christmas.model;
 
-public enum Type {
+public enum MenuType {
 
     APPETIZER,
     MAIN_MENU,

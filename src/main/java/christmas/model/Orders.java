@@ -1,18 +1,18 @@
 package christmas.model;
 
-import static christmas.model.Type.DESSERT;
-import static christmas.model.Type.DRINK;
-import static christmas.model.Type.MAIN_MENU;
+import static christmas.model.MenuType.DESSERT;
+import static christmas.model.MenuType.DRINK;
+import static christmas.model.MenuType.MAIN_MENU;
 
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class OrderList {
-    private final Map<Menu, Integer> orderList;
+public class Orders {
+    private final Map<Menu, Integer> orders;
 
-    public OrderList(List<String> input) {
-        orderList = new TreeMap<>();
+    public Orders(List<String> input) {
+        orders = new TreeMap<>();
         input.stream()
                 .map(str -> str.split("-"))
                 .forEach(menu -> addMenu(menu[0], Integer.parseInt(menu[1])));
@@ -21,53 +21,53 @@ public class OrderList {
     }
 
     public int totalPrice() {
-        return orderList.keySet().stream()
-                .mapToInt(menu -> menu.getPrice() * orderList.get(menu)).sum();
+        return orders.keySet().stream()
+                .mapToInt(menu -> menu.getPrice() * orders.get(menu)).sum();
     }
 
     public int numberOfDessert() {
-        return orderList.keySet().stream()
+        return orders.keySet().stream()
                 .filter(menu -> menu.typeEquals(DESSERT))
-                .mapToInt(orderList::get)
+                .mapToInt(orders::get)
                 .sum();
     }
 
     public int numberOfMainMenu() {
-        return orderList.keySet().stream()
+        return orders.keySet().stream()
                 .filter(menu -> menu.typeEquals(MAIN_MENU))
-                .mapToInt(orderList::get)
+                .mapToInt(orders::get)
                 .sum();
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        orderList.keySet().forEach(menu -> sb.append(String.format("%s %d개\n", menu.getName(), orderList.get(menu))));
+        orders.keySet().forEach(menu -> sb.append(String.format("%s %d개\n", menu.getName(), orders.get(menu))));
         return sb.toString();
     }
 
     private void addMenu(String name, int count) {
         Menu menu = Menu.findMenu(name);
-        orderList.put(validateDistinctMenu(menu), count);
+        orders.put(validateDistinctMenu(menu), count);
     }
 
     private Menu validateDistinctMenu(Menu menu) {
-        if(orderList.containsKey(menu)) {
+        if(orders.containsKey(menu)) {
             throw new IllegalArgumentException();
         }
         return menu;
     }
 
     private void validateOrderCount() {
-        if(orderList.keySet().stream()
-                .mapToInt(orderList::get)
+        if(orders.keySet().stream()
+                .mapToInt(orders::get)
                 .sum() > 20) {
             throw new IllegalArgumentException();
         }
     }
 
     private void validateOnlyDrinks() {
-        if(orderList.keySet().stream()
+        if(orders.keySet().stream()
                 .allMatch(menu -> menu.typeEquals(DRINK))) {
             throw new IllegalArgumentException();
         }

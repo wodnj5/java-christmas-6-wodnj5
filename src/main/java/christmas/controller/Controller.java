@@ -1,8 +1,9 @@
 package christmas.controller;
 
+import christmas.model.EventBadge;
 import christmas.model.EventManager;
 import christmas.model.Gift;
-import christmas.model.OrderList;
+import christmas.model.Orders;
 import christmas.model.Today;
 import christmas.view.ErrorMessage;
 import christmas.view.InputView;
@@ -14,7 +15,7 @@ public class Controller {
     private final OutputView outputView;
     private final ErrorMessage errorMessage;
     private Today today;
-    private OrderList orderList;
+    private Orders orders;
     private Gift gift;
     private EventManager eventManager;
 
@@ -33,7 +34,7 @@ public class Controller {
     private void input() {
         outputView.printHello();
         today = createToday();
-        orderList = createOrder();
+        orders = createOrder();
     }
 
     private void calculate() {
@@ -43,13 +44,29 @@ public class Controller {
 
     private void preview() {
         outputView.printEventPreviewStart();
-        outputView.printOrderList(orderList.toString());
-        outputView.printTotalPrice(orderList.totalPrice());
+        previewOrders();
+        previewGift();
+        previewEvents();
+        previewEventBadge();
+    }
+
+    private void previewOrders() {
+        outputView.printOrders(orders.toString());
+        outputView.printTotalPrice(orders.totalPrice());
+    }
+
+    private void previewGift() {
         outputView.printGift(gift.toString());
-        outputView.printEventList(eventManager.toString());
+    }
+
+    private void previewEvents() {
+        outputView.printEvents(eventManager.toString());
         outputView.printTotalDiscount(eventManager.totalDiscount());
         outputView.printEstimatedPrice(eventManager.estimatedPrice());
-        outputView.printBadge(eventManager.badgeName());
+    }
+
+    private void previewEventBadge() {
+        outputView.printEventBadge(EventBadge.classifyEventBadge(eventManager.totalDiscount()));
     }
 
     private Today createToday() {
@@ -62,10 +79,10 @@ public class Controller {
         }
     }
 
-    private OrderList createOrder() {
+    private Orders createOrder() {
         while(true) {
             try {
-                return new OrderList(inputView.inputOrders());
+                return new Orders(inputView.inputOrders());
             } catch (IllegalArgumentException e) {
                 errorMessage.printOrderFormatError();
             }
@@ -73,10 +90,10 @@ public class Controller {
     }
 
     private Gift createGift() {
-        return new Gift(orderList.totalPrice());
+        return new Gift(orders.totalPrice());
     }
 
     private EventManager createEventManager() {
-        return new EventManager(today, orderList, gift);
+        return new EventManager(today, orders, gift);
     }
 }

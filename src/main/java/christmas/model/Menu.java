@@ -1,9 +1,9 @@
 package christmas.model;
 
-import static christmas.model.Type.APPETIZER;
-import static christmas.model.Type.DESSERT;
-import static christmas.model.Type.DRINK;
-import static christmas.model.Type.MAIN_MENU;
+import static christmas.model.MenuType.APPETIZER;
+import static christmas.model.MenuType.DESSERT;
+import static christmas.model.MenuType.DRINK;
+import static christmas.model.MenuType.MAIN_MENU;
 
 public enum Menu {
 
@@ -21,12 +21,12 @@ public enum Menu {
     CHAMPAGNE("샴페인", DRINK, 25_000);
 
     private final String name;
-    private final Type type;
+    private final MenuType menuType;
     private final int price;
 
-    Menu(String name, Type type, int price) {
+    Menu(String name, MenuType menuType, int price) {
         this.name = name;
-        this.type = type;
+        this.menuType = menuType;
         this.price = price;
     }
 
@@ -39,8 +39,8 @@ public enum Menu {
         throw new IllegalArgumentException();
     }
 
-    public boolean typeEquals(Type type) {
-        return this.type == type;
+    public boolean typeEquals(MenuType menuType) {
+        return this.menuType == menuType;
     }
 
     public String getName() {

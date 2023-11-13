@@ -3,6 +3,7 @@ package christmas.model;
 import java.time.LocalDate;
 
 public class Today {
+
     private static final int MONDAY = 1;
     private static final int FRIDAY = 5;
     private static final int SATURDAY = 6;

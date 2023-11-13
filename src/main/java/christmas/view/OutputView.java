@@ -6,7 +6,7 @@ public class OutputView {
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
     }
 
-    public void printOrderList(String output) {
+    public void printOrders(String output) {
         System.out.println("<주문 메뉴>");
         System.out.println(output);
     }
@@ -25,7 +25,7 @@ public class OutputView {
         System.out.println(output);
     }
 
-    public void printEventList(String output) {
+    public void printEvents(String output) {
         System.out.println("<혜택 내역>");
         System.out.println(output);
     }
@@ -40,7 +40,7 @@ public class OutputView {
         System.out.printf("%,d원\n\n", output);
     }
 
-    public void printBadge(String output) {
+    public void printEventBadge(String output) {
         System.out.println("<12월 이벤트 배지>");
         System.out.println(output);
     }

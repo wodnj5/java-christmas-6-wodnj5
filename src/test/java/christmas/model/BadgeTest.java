@@ -1,8 +1,5 @@
 package christmas.model;
 
-import static christmas.model.Badge.SANTA;
-import static christmas.model.Badge.STAR;
-import static christmas.model.Badge.TREE;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.DisplayName;
@@ -14,10 +11,10 @@ public class BadgeTest {
     @Test
     void classifyBadgeTest() {
         int[] ints = {9_900, 19_900, 20_001, 4_999};
-        Badge[] result = {STAR, TREE, SANTA, null};
+        String[] result = {"별", "트리", "산타", "없음"};
 
         for(int i = 0; i < ints.length ; i++) {
-            assertThat(Badge.classifyBadge(ints[i])).isEqualTo(result[i]);
+            assertThat(EventBadge.classifyEventBadge(ints[i])).isEqualTo(result[i]);
         }
     }
 }

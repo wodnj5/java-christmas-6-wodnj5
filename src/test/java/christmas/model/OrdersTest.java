@@ -6,12 +6,12 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class OrderListTest {
+public class OrdersTest {
     @DisplayName("음료수만 있으면 예외를 발생한다.")
     @Test
     void createOrderByOnlyDrink() {
 
-        assertThatThrownBy(() -> new OrderList(List.of("제로콜라-1", "샴페인-1", "레드와인-1")))
+        assertThatThrownBy(() -> new Orders(List.of("제로콜라-1", "샴페인-1", "레드와인-1")))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -19,7 +19,7 @@ public class OrderListTest {
     @Test
     void createOrderByDistinctMenu() {
 
-        assertThatThrownBy(() -> new OrderList(List.of("제로콜라-1", "해산물파스타-1", "해산물파스타-2")))
+        assertThatThrownBy(() -> new Orders(List.of("제로콜라-1", "해산물파스타-1", "해산물파스타-2")))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -27,7 +27,7 @@ public class OrderListTest {
     @Test
     void createOrderByInvalidMenu() {
 
-        assertThatThrownBy(() -> new OrderList(List.of("제로콜라-1", "토마토파스타-1", "해산물파스타-2")))
+        assertThatThrownBy(() -> new Orders(List.of("제로콜라-1", "토마토파스타-1", "해산물파스타-2")))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -35,7 +35,7 @@ public class OrderListTest {
     @Test
     void createOrderByTooManyMenu() {
 
-        assertThatThrownBy(() -> new OrderList(List.of("제로콜라-7", "크리스마스파스타-8", "해산물파스타-8")))
+        assertThatThrownBy(() -> new Orders(List.of("제로콜라-7", "크리스마스파스타-8", "해산물파스타-8")))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 }

@@ -11,52 +11,44 @@ import java.util.TreeMap;
 
 public class EventManager {
 
-    private final Map<Event, Integer> eventList;
+    private final Map<Event, Integer> events;
     private final Today today;
-    private final OrderList orderList;
+    private final Orders orders;
     private final Gift gift;
 
-    public EventManager(Today today, OrderList orderList, Gift gift) {
+    public EventManager(Today today, Orders orders, Gift gift) {
         this.today = today;
-        this.orderList = orderList;
+        this.orders = orders;
         this.gift = gift;
-        eventList = new TreeMap<>();
+        events = new TreeMap<>();
         if(validateTotalPrice()) {
             addEvent();
         }
     }
 
     public int totalDiscount() {
-        return eventList.keySet().stream()
-                .mapToInt(eventList::get)
+        return events.keySet().stream()
+                .mapToInt(events::get)
                 .sum();
     }
 
     public int estimatedPrice() {
-        return orderList.totalPrice() - totalDiscount() + gift.giftPrice();
-    }
-
-    public String badgeName() {
-        Badge badge = Badge.classifyBadge(totalDiscount());
-        if(badge == null) {
-            return "없음\n";
-        }
-        return badge.getName();
+        return orders.totalPrice() - totalDiscount() + gift.giftPrice();
     }
 
     @Override
     public String toString() {
-        if(eventList.keySet().isEmpty()) {
+        if(events.keySet().isEmpty()) {
             return "없음\n";
         }
         StringBuilder sb = new StringBuilder();
-        eventList.keySet()
-                .forEach(event -> sb.append(String.format("%s: -%,d원\n", event.getName(), eventList.get(event))));
+        events.keySet()
+                .forEach(event -> sb.append(String.format("%s: -%,d원\n", event.getName(), events.get(event))));
         return sb.toString();
     }
 
     private boolean validateTotalPrice() {
-        return orderList.totalPrice() >= 10_000;
+        return orders.totalPrice() >= 10_000;
     }
 
     private void addEvent() {
@@ -69,31 +61,31 @@ public class EventManager {
 
     private void addDDayEvent() {
         if(today.isDDayEvent()) {
-            eventList.put(DDAY_EVENT, 1000 + (today.getDate() - 1) * 100);
+            events.put(DDAY_EVENT, 1000 + (today.getDate() - 1) * 100);
         }
     }
 
     private void addWeekDayEvent() {
         if(today.isWeekDayEvent()) {
-            eventList.put(WEEKDAY_EVENT, 2_023 * orderList.numberOfDessert());
+            events.put(WEEKDAY_EVENT, 2_023 * orders.numberOfDessert());
         }
     }
 
     private void addWeekEndEvent() {
         if(today.isWeekEndEvent()) {
-            eventList.put(WEEKEND_EVENT, 2_023 * orderList.numberOfMainMenu());
+            events.put(WEEKEND_EVENT, 2_023 * orders.numberOfMainMenu());
         }
     }
 
     private void addSpecialEvent() {
         if(today.isSpecialEvent()) {
-            eventList.put(SPECIAL_EVENT, 1000);
+            events.put(SPECIAL_EVENT, 1000);
         }
     }
 
     private void addGiftEvent() {
         if (!gift.isEmpty()) {
-            eventList.put(GIFT_EVENT, gift.giftPrice());
+            events.put(GIFT_EVENT, gift.giftPrice());
         }
     }
 }
