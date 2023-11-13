@@ -17,7 +17,7 @@ public class OutputView {
 
     public void printTotalPrice(int output) {
         System.out.println("<할인 전 총주문 금액>");
-        System.out.printf("%,d원\n" ,output);
+        System.out.printf("%,d원\n\n" ,output);
     }
 
     public void printGift(String output) {
@@ -32,12 +32,12 @@ public class OutputView {
 
     public void printTotalDiscount(int output) {
         System.out.println("<총혜택 금액>");
-        System.out.printf("-%,d원\n", output);
+        System.out.printf("-%,d원\n\n", output);
     }
 
     public void printEstimatedPrice(int output) {
         System.out.println("<할인 후 예상 결제 금액>");
-        System.out.printf("%,d원\n", output);
+        System.out.printf("%,d원\n\n", output);
     }
 
     public void printBadge(String output) {

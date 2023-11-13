@@ -19,6 +19,9 @@ public class Gift {
     }
 
     public int giftPrice() {
+        if(menu == null) {
+            return 0;
+        }
         return menu.getPrice();
     }
 

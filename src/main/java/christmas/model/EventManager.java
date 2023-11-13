@@ -33,15 +33,15 @@ public class EventManager {
     }
 
     public int estimatedPrice() {
-        int sum = orderList.totalPrice() - totalDiscount();
-        if(!gift.isEmpty()) {
-            sum += gift.giftPrice();
-        }
-        return sum;
+        return orderList.totalPrice() - totalDiscount() + gift.giftPrice();
     }
 
-    public String eventBadge() {
-        return Badge.classifyBadge(totalDiscount());
+    public String badgeName() {
+        Badge badge = Badge.classifyBadge(totalDiscount());
+        if(badge == null) {
+            return "없음\n";
+        }
+        return badge.getName();
     }
 
     @Override

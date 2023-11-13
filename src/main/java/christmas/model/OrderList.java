@@ -47,7 +47,7 @@ public class OrderList {
     }
 
     private void addMenu(String name, int count) {
-        Menu menu = Menu.findMenuByName(name);
+        Menu menu = Menu.findMenu(name);
         orderList.put(validateDistinctMenu(menu), count);
     }
 

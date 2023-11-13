@@ -4,8 +4,7 @@ public enum Badge {
 
     STAR("별"),
     TREE("트리"),
-    SANTA("산타"),
-    NONE("없음");
+    SANTA("산타");
 
     private final String name;
 
@@ -13,21 +12,20 @@ public enum Badge {
         this.name = name;
     }
 
-    public static String classifyBadge(int totalDiscountPrice) {
+    public static Badge classifyBadge(int totalDiscountPrice) {
         if(totalDiscountPrice >= 5_000 && totalDiscountPrice < 10_000) {
-            return STAR.name;
+            return STAR;
         }
         if(totalDiscountPrice >= 10_000 && totalDiscountPrice < 20_000) {
-            return TREE.name;
+            return TREE;
         }
         if(totalDiscountPrice >= 20_000) {
-            return SANTA.name;
+            return SANTA;
         }
-        return NONE.name;
+        return null;
     }
 
-    @Override
-    public String toString() {
+    public String getName() {
         return name;
     }
 }

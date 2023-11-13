@@ -10,36 +10,35 @@ import christmas.view.OutputView;
 
 public class Controller {
 
-    private InputView inputView;
-    private OutputView outputView;
-    private ErrorMessage errorMessage;
+    private final InputView inputView;
+    private final OutputView outputView;
+    private final ErrorMessage errorMessage;
     private Today today;
     private OrderList orderList;
     private Gift gift;
     private EventManager eventManager;
 
-    public void run() {
-        start();
+    public Controller(InputView inputView, OutputView outputView, ErrorMessage errorMessage) {
+        this.inputView = inputView;
+        this.outputView = outputView;
+        this.errorMessage = errorMessage;
+    }
+
+    public void start() {
         input();
         calculate();
         preview();
     }
 
-    private void start() {
-        inputView = initInputView();
-        outputView = initOutputView();
-        errorMessage = initErrorMessage();
-    }
-
     private void input() {
         outputView.printHello();
-        today = initToday();
-        orderList = initOrder();
+        today = createToday();
+        orderList = createOrder();
     }
 
     private void calculate() {
-        gift = initGift();
-        eventManager = initEventManager();
+        gift = createGift();
+        eventManager = createEventManager();
     }
 
     private void preview() {
@@ -50,44 +49,34 @@ public class Controller {
         outputView.printEventList(eventManager.toString());
         outputView.printTotalDiscount(eventManager.totalDiscount());
         outputView.printEstimatedPrice(eventManager.estimatedPrice());
-        outputView.printBadge(eventManager.eventBadge());
+        outputView.printBadge(eventManager.badgeName());
     }
 
-    private InputView initInputView() {
-        return new InputView();
-    }
-
-    private OutputView initOutputView() {
-        return new OutputView();
-    }
-
-    private ErrorMessage initErrorMessage() {
-        return new ErrorMessage();
-    }
-
-    private Today initToday() {
-        try {
-            return new Today(inputView.inputDate());
-        } catch (IllegalArgumentException e) {
-            errorMessage.printDateFormatError();
-            return initToday();
+    private Today createToday() {
+        while(true) {
+            try {
+                return new Today(inputView.inputDate());
+            } catch (IllegalArgumentException e) {
+                errorMessage.printDateFormatError();
+            }
         }
     }
 
-    private OrderList initOrder() {
-        try {
-            return new OrderList(inputView.inputOrders());
-        } catch (IllegalArgumentException e) {
-            errorMessage.printOrderFormatError();
-            return initOrder();
+    private OrderList createOrder() {
+        while(true) {
+            try {
+                return new OrderList(inputView.inputOrders());
+            } catch (IllegalArgumentException e) {
+                errorMessage.printOrderFormatError();
+            }
         }
     }
 
-    private Gift initGift() {
+    private Gift createGift() {
         return new Gift(orderList.totalPrice());
     }
 
-    private EventManager initEventManager() {
+    private EventManager createEventManager() {
         return new EventManager(today, orderList, gift);
     }
 }
