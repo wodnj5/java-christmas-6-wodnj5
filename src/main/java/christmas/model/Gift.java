@@ -7,15 +7,11 @@ public class Gift {
     private Menu menu;
     private int count;
 
-    public Gift(int totalPrice) {
-        if(validate(totalPrice)) {
+    public Gift(Orders orders) {
+        if(validate(orders.totalPrice())) {
             menu = CHAMPAGNE;
             count = 1;
         }
-    }
-
-    public boolean isEmpty() {
-        return menu == null;
     }
 
     public int giftPrice() {

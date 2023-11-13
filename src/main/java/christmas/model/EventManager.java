@@ -36,14 +36,19 @@ public class EventManager {
         return orders.totalPrice() - totalDiscount() + gift.giftPrice();
     }
 
+    public String eventBadgeName() {
+        return EventBadge.classifyEventBadge(totalDiscount());
+    }
+
     @Override
     public String toString() {
         if(events.keySet().isEmpty()) {
             return "없음\n";
         }
         StringBuilder sb = new StringBuilder();
-        events.keySet()
-                .forEach(event -> sb.append(String.format("%s: -%,d원\n", event.getName(), events.get(event))));
+        events.keySet().forEach(event -> sb.append(
+                String.format("%s: -%,d원\n", event.getName(), events.get(event))
+        ));
         return sb.toString();
     }
 
@@ -67,13 +72,19 @@ public class EventManager {
 
     private void addWeekDayEvent() {
         if(today.isWeekDayEvent()) {
-            events.put(WEEKDAY_EVENT, 2_023 * orders.numberOfDessert());
+            int discount = 2_023 * orders.numberOfDessert();
+            if(discount != 0) {
+                events.put(WEEKDAY_EVENT, discount);
+            }
         }
     }
 
     private void addWeekEndEvent() {
         if(today.isWeekEndEvent()) {
-            events.put(WEEKEND_EVENT, 2_023 * orders.numberOfMainMenu());
+            int discount = 2_023 * orders.numberOfMainMenu();
+            if(discount != 0) {
+                events.put(WEEKEND_EVENT, discount);
+            }
         }
     }
 
@@ -84,8 +95,9 @@ public class EventManager {
     }
 
     private void addGiftEvent() {
-        if (!gift.isEmpty()) {
-            events.put(GIFT_EVENT, gift.giftPrice());
+        int price = gift.giftPrice();
+        if (price != 0) {
+            events.put(GIFT_EVENT, price);
         }
     }
 }

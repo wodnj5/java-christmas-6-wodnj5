@@ -1,6 +1,5 @@
 package christmas.controller;
 
-import christmas.model.EventBadge;
 import christmas.model.EventManager;
 import christmas.model.Gift;
 import christmas.model.Orders;
@@ -47,7 +46,6 @@ public class Controller {
         previewOrders();
         previewGift();
         previewEvents();
-        previewEventBadge();
     }
 
     private void previewOrders() {
@@ -63,10 +61,7 @@ public class Controller {
         outputView.printEvents(eventManager.toString());
         outputView.printTotalDiscount(eventManager.totalDiscount());
         outputView.printEstimatedPrice(eventManager.estimatedPrice());
-    }
-
-    private void previewEventBadge() {
-        outputView.printEventBadge(EventBadge.classifyEventBadge(eventManager.totalDiscount()));
+        outputView.printEventBadge(eventManager.eventBadgeName());
     }
 
     private Today createToday() {
@@ -90,7 +85,7 @@ public class Controller {
     }
 
     private Gift createGift() {
-        return new Gift(orders.totalPrice());
+        return new Gift(orders);
     }
 
     private EventManager createEventManager() {
