@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class OrdersTest {
+
     @DisplayName("음료수만 있으면 예외를 발생한다.")
     @Test
     void createOrderByOnlyDrink() {

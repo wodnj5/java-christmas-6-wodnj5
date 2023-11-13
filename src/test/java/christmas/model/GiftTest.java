@@ -2,27 +2,38 @@ package christmas.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.api.Test;
 
 public class GiftTest {
 
-    @ValueSource(ints = {120_000, 130_000, 142_023})
     @DisplayName("금액이 12만원 이상이면 샴페인 증정 이벤트 상품을 받는다.")
-    @ParameterizedTest
-    void createGift(int totalPrice) {
+    @Test
+    void createGiftByEnoughMoney() {
+        Orders[] orders = {
+                new Orders(List.of("양송이수프-2", "티본스테이크-1", "바비큐립-1", "아이스크림-2", "제로콜라-2")),
+                new Orders(List.of("시저샐러드-1", "바비큐립-1", "초코케이크-1", "레드와인-1")),
+                new Orders(List.of("타파스-1", "해산물파스타-1", "크리스마스파스타-1", "티본스테이크-1", "아이스크림-2"))
+        };
 
-        assertThat(new Gift(totalPrice).toString())
-                .isEqualTo("샴페인 1개\n");
+        for(Orders order : orders) {
+            assertThat(new Gift(order).toString())
+                    .isEqualTo("샴페인 1개\n");
+        }
     }
+    @DisplayName("금액이 12만원 이하이면 이벤트 상품이 없다.")
+    @Test
+    void createGiftByNotEnoughMoney() {
+        Orders[] orders = {
+                new Orders(List.of("양송이수프-2", "티본스테이크-1", "아이스크림-2", "제로콜라-2")),
+                new Orders(List.of("시저샐러드-1", "초코케이크-1", "레드와인-1")),
+                new Orders(List.of("타파스-1", "해산물파스타-1", "크리스마스파스타-1", "아이스크림-2"))
+        };
 
-    @ValueSource(ints = {8_500, 13_000, 20_230})
-    @DisplayName("금액이 12만원 이하이면 증정 이벤트 상품을 받지 않는다.")
-    @ParameterizedTest
-    void invalidGift(int totalPrice) {
-
-        assertThat(new Gift(totalPrice).toString())
-                .isEqualTo("없음\n");
+        for(Orders order : orders) {
+            assertThat(new Gift(order).toString())
+                    .isEqualTo("없음\n");
+        }
     }
 }
