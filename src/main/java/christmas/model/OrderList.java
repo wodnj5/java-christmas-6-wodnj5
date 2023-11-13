@@ -1,5 +1,9 @@
 package christmas.model;
 
+import static christmas.model.Type.DESSERT;
+import static christmas.model.Type.DRINK;
+import static christmas.model.Type.MAIN_MENU;
+
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -23,14 +27,14 @@ public class OrderList {
 
     public int numberOfDessert() {
         return orderList.keySet().stream()
-                .filter(menu -> menu.typeEquals(3))
+                .filter(menu -> menu.typeEquals(DESSERT))
                 .mapToInt(orderList::get)
                 .sum();
     }
 
     public int numberOfMainMenu() {
         return orderList.keySet().stream()
-                .filter(menu -> menu.typeEquals(2))
+                .filter(menu -> menu.typeEquals(MAIN_MENU))
                 .mapToInt(orderList::get)
                 .sum();
     }
@@ -64,7 +68,7 @@ public class OrderList {
 
     private void validateOnlyDrinks() {
         if(orderList.keySet().stream()
-                .allMatch(menu -> menu.typeEquals(4))) {
+                .allMatch(menu -> menu.typeEquals(DRINK))) {
             throw new IllegalArgumentException();
         }
     }

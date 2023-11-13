@@ -51,7 +51,7 @@ public class EventManager {
         }
         StringBuilder sb = new StringBuilder();
         eventList.keySet()
-                .forEach(event -> sb.append(String.format("%s: -%,d원\n", event.getMessage(), eventList.get(event))));
+                .forEach(event -> sb.append(String.format("%s: -%,d원\n", event.getName(), eventList.get(event))));
         return sb.toString();
     }
 

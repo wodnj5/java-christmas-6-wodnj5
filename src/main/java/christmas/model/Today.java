@@ -3,9 +3,13 @@ package christmas.model;
 import java.time.LocalDate;
 
 public class Today {
-
+    private static final int MONDAY = 1;
+    private static final int FRIDAY = 5;
+    private static final int SATURDAY = 6;
+    private static final int SUNDAY = 7;
     private static final int YEAR = 2023;
     private static final int MONTH = 12;
+    private static final int CHRISTMAS = 25;
     private final int date;
     private final int day;
 
@@ -26,15 +30,15 @@ public class Today {
     }
 
     public boolean isWeekDayEvent() {
-        return (day >= 1 && day <= 5) || day == 7;
+        return (day >= MONDAY && day < FRIDAY) || day == SUNDAY;
     }
 
     public boolean isWeekEndEvent() {
-        return day == 5 || day == 6;
+        return day == FRIDAY || day == SATURDAY;
     }
 
     public boolean isSpecialEvent() {
-        return day == 7 || date == 25;
+        return day == SUNDAY || date == CHRISTMAS;
     }
 
     private void validate(int date) {
