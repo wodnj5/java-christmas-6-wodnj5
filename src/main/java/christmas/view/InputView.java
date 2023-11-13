@@ -28,7 +28,7 @@ public class InputView {
     }
 
     private String validateOrderFormat(String input) {
-        Matcher matcher = Pattern.compile("^.+-\\d+$").matcher(input);
+        Matcher matcher = Pattern.compile("^.+-([1-9]\\d*)").matcher(input);
         if(!matcher.matches()) {
             throw new IllegalArgumentException();
         }

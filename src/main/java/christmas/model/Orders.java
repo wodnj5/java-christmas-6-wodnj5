@@ -42,7 +42,9 @@ public class Orders {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        orders.keySet().forEach(menu -> sb.append(String.format("%s %d개\n", menu.getName(), orders.get(menu))));
+        orders.keySet().forEach(menu -> sb.append(
+                String.format("%s %d개\n", menu.getName(), orders.get(menu))
+        ));
         return sb.toString();
     }
 

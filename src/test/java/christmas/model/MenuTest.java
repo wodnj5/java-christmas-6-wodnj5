@@ -16,10 +16,11 @@ public class MenuTest {
     @DisplayName("메뉴 이름을 통해서 메뉴 객체를 찾는다.")
     @Test
     void findMenuTest() {
+        int numberOfCases = 3;
         String[] strings = {"바비큐립", "시저샐러드", "아이스크림"};
         Menu[] menus = {BARBECUE_RIBS, CAESAR_SALAD, ICE_CREAM};
 
-        for(int i = 0 ; i < strings.length ; i++) {
+        for(int i = 0 ; i < numberOfCases ; i++) {
             assertThat(Menu.findMenu(strings[i])).isEqualTo(menus[i]);
         }
     }
