@@ -28,7 +28,7 @@ public class InputView {
 
     private int validateNumbersFormat(String input) {
         try {
-            return Integer.parseInt(input.trim());
+            return Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException();
         }
