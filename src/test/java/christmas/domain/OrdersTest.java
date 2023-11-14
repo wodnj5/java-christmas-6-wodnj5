@@ -51,4 +51,15 @@ public class OrdersTest {
                 new String[]{"해산물파스타", "8"}
         ))).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @DisplayName("메뉴를 0개 이하로 주문하면 예외를 발생한다.")
+    @Test
+    void createOrderByWrongMenuCount() {
+
+        assertThatThrownBy(() -> new Orders(List.of(
+                new String[]{"제로콜라", "0"},
+                new String[]{"크리스마스파스타", "1"},
+                new String[]{"해산물파스타", "2"}
+        ))).isInstanceOf(IllegalArgumentException.class);
+    }
 }
