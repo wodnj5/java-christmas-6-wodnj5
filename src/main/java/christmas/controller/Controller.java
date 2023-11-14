@@ -1,9 +1,9 @@
 package christmas.controller;
 
-import christmas.model.EventManager;
-import christmas.model.Gift;
-import christmas.model.Orders;
-import christmas.model.Today;
+import christmas.domain.EventManager;
+import christmas.domain.Gift;
+import christmas.domain.Orders;
+import christmas.domain.Today;
 import christmas.view.ErrorMessage;
 import christmas.view.InputView;
 import christmas.view.OutputView;

@@ -3,13 +3,11 @@ package christmas.view;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class InputView {
     public int inputDate() {
         System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
-        return validateDateFormat(Console.readLine());
+        return validateNumber(Console.readLine());
     }
 
     public List<String> inputOrders() {
@@ -19,19 +17,20 @@ public class InputView {
                 .toList();
     }
 
-    private int validateDateFormat(String input) {
+    private String validateOrderFormat(String input) {
+        try {
+            validateNumber(input.split("-")[1].trim());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new IllegalArgumentException();
+        }
+        return input;
+    }
+
+    private int validateNumber(String input) {
         try {
             return Integer.parseInt(input.trim());
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException();
         }
-    }
-
-    private String validateOrderFormat(String input) {
-        Matcher matcher = Pattern.compile("^.+-([1-9]\\d*)").matcher(input);
-        if(!matcher.matches()) {
-            throw new IllegalArgumentException();
-        }
-        return input;
     }
 }

@@ -1,6 +1,6 @@
-package christmas.model;
+package christmas.domain;
 
-import static christmas.model.Menu.CHAMPAGNE;
+import static christmas.domain.Menu.CHAMPAGNE;
 
 public class Gift {
 

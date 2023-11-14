@@ -1,10 +1,10 @@
-package christmas.model;
+package christmas.domain;
 
-import static christmas.model.Event.DDAY_EVENT;
-import static christmas.model.Event.GIFT_EVENT;
-import static christmas.model.Event.SPECIAL_EVENT;
-import static christmas.model.Event.WEEKDAY_EVENT;
-import static christmas.model.Event.WEEKEND_EVENT;
+import static christmas.domain.Event.DDAY_EVENT;
+import static christmas.domain.Event.GIFT_EVENT;
+import static christmas.domain.Event.SPECIAL_EVENT;
+import static christmas.domain.Event.WEEKDAY_EVENT;
+import static christmas.domain.Event.WEEKEND_EVENT;
 
 import java.util.Map;
 import java.util.TreeMap;

@@ -1,9 +1,9 @@
-package christmas.model;
+package christmas.domain;
 
-import static christmas.model.MenuType.APPETIZER;
-import static christmas.model.MenuType.DESSERT;
-import static christmas.model.MenuType.DRINK;
-import static christmas.model.MenuType.MAIN_MENU;
+import static christmas.domain.MenuType.APPETIZER;
+import static christmas.domain.MenuType.DESSERT;
+import static christmas.domain.MenuType.DRINK;
+import static christmas.domain.MenuType.MAIN_MENU;
 
 public enum Menu {
 

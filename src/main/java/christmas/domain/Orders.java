@@ -1,8 +1,8 @@
-package christmas.model;
+package christmas.domain;
 
-import static christmas.model.MenuType.DESSERT;
-import static christmas.model.MenuType.DRINK;
-import static christmas.model.MenuType.MAIN_MENU;
+import static christmas.domain.MenuType.DESSERT;
+import static christmas.domain.MenuType.DRINK;
+import static christmas.domain.MenuType.MAIN_MENU;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +15,7 @@ public class Orders {
         orders = new TreeMap<>();
         input.stream()
                 .map(str -> str.split("-"))
-                .forEach(menu -> addMenu(menu[0], Integer.parseInt(menu[1])));
+                .forEach(menu -> addMenu(menu[0].trim(), Integer.parseInt(menu[1].trim())));
         validateOrderCount();
         validateOnlyDrinks();
     }
@@ -50,7 +50,7 @@ public class Orders {
 
     private void addMenu(String name, int count) {
         Menu menu = Menu.findMenu(name);
-        orders.put(validateDistinctMenu(menu), count);
+        orders.put(validateDistinctMenu(menu), validateCount(count));
     }
 
     private Menu validateDistinctMenu(Menu menu) {
@@ -58,6 +58,13 @@ public class Orders {
             throw new IllegalArgumentException();
         }
         return menu;
+    }
+
+    private int validateCount(int count) {
+        if(count < 1) {
+            throw new IllegalArgumentException();
+        }
+        return count;
     }
 
     private void validateOrderCount() {
