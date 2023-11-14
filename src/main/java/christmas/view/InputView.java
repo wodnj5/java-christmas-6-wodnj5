@@ -20,7 +20,9 @@ public class InputView {
     private String[] validateOrderFormat(String input) {
         try {
             String[] menu = input.split("-");
-            validateNumbersFormat(menu[1].trim());
+            menu[0] = menu[0].trim();
+            menu[1] = menu[1].trim();
+            validateNumbersFormat(menu[1]);
             return menu;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new IllegalArgumentException();

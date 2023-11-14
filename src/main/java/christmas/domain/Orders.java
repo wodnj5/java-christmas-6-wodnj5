@@ -13,7 +13,7 @@ public class Orders {
 
     public Orders(List<String[]> input) {
         orders = new TreeMap<>();
-        input.forEach(menu -> addMenu(menu[0].trim(), Integer.parseInt(menu[1].trim())));
+        input.forEach(menu -> addMenu(menu[0], Integer.parseInt(menu[1])));
         validateTotalOrderCount();
         validateOnlyDrinks();
     }
