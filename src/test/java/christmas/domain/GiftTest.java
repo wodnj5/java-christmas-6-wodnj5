@@ -12,9 +12,26 @@ public class GiftTest {
     @Test
     void createGiftByEnoughMoney() {
         Orders[] orders = {
-                new Orders(List.of("양송이수프-2", "티본스테이크-1", "바비큐립-1", "아이스크림-2", "제로콜라-2")),
-                new Orders(List.of("시저샐러드-1", "바비큐립-1", "초코케이크-1", "레드와인-1")),
-                new Orders(List.of("타파스-1", "해산물파스타-1", "크리스마스파스타-1", "티본스테이크-1", "아이스크림-2"))
+                new Orders(List.of(
+                        new String[]{"양송이수프", "2"},
+                        new String[]{"티본스테이크", "1"},
+                        new String[]{"바비큐립", "1"},
+                        new String[]{"아이스크림", "2"},
+                        new String[]{"제로콜라", "2"}
+                )),
+                new Orders(List.of(
+                        new String[]{"시저샐러드", "1"},
+                        new String[]{"바비큐립", "1"},
+                        new String[]{"초코케이크", "1"},
+                        new String[]{"레드와인", "1"}
+                )),
+                new Orders(List.of(
+                        new String[]{"타파스", "1"},
+                        new String[]{"해산물파스타", "1"},
+                        new String[]{"크리스마스파스타", "1"},
+                        new String[]{"티본스테이크", "1"},
+                        new String[]{"아이스크림", "2"}
+                ))
         };
 
         for(Orders order : orders) {
@@ -26,9 +43,23 @@ public class GiftTest {
     @Test
     void createGiftByNotEnoughMoney() {
         Orders[] orders = {
-                new Orders(List.of("양송이수프-2", "티본스테이크-1", "아이스크림-2", "제로콜라-2")),
-                new Orders(List.of("시저샐러드-1", "초코케이크-1", "레드와인-1")),
-                new Orders(List.of("타파스-1", "해산물파스타-1", "크리스마스파스타-1", "아이스크림-2"))
+                new Orders(List.of(
+                        new String[]{"양송이수프", "2"},
+                        new String[]{"티본스테이크", "1"},
+                        new String[]{"아이스크림", "2"},
+                        new String[]{"제로콜라", "2"}
+                )),
+                new Orders(List.of(
+                        new String[]{"시저샐러드", "1"},
+                        new String[]{"초코케이크", "1"},
+                        new String[]{"레드와인", "1"}
+                )),
+                new Orders(List.of(
+                        new String[]{"타파스", "1"},
+                        new String[]{"해산물파스타", "1"},
+                        new String[]{"크리스마스파스타", "1"},
+                        new String[]{"아이스크림", "2"}
+                ))
         };
 
         for(Orders order : orders) {

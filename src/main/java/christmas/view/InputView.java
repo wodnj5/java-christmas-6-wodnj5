@@ -10,20 +10,21 @@ public class InputView {
         return validateNumbersFormat(Console.readLine());
     }
 
-    public List<String> inputOrders() {
+    public List<String[]> inputOrders() {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
         return Arrays.stream(Console.readLine().split(","))
                 .map(this::validateOrderFormat)
                 .toList();
     }
 
-    private String validateOrderFormat(String input) {
+    private String[] validateOrderFormat(String input) {
         try {
-            validateNumbersFormat(input.split("-")[1].trim());
+            String[] menu = input.split("-");
+            validateNumbersFormat(menu[1].trim());
+            return menu;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new IllegalArgumentException();
         }
-        return input;
     }
 
     private int validateNumbersFormat(String input) {

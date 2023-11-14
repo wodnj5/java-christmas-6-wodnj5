@@ -11,11 +11,9 @@ import java.util.TreeMap;
 public class Orders {
     private final Map<Menu, Integer> orders;
 
-    public Orders(List<String> input) {
+    public Orders(List<String[]> input) {
         orders = new TreeMap<>();
-        input.stream()
-                .map(str -> str.split("-"))
-                .forEach(menu -> addMenu(menu[0].trim(), Integer.parseInt(menu[1].trim())));
+        input.forEach(menu -> addMenu(menu[0].trim(), Integer.parseInt(menu[1].trim())));
         validateTotalOrderCount();
         validateOnlyDrinks();
     }
