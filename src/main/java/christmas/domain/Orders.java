@@ -16,7 +16,7 @@ public class Orders {
         input.stream()
                 .map(str -> str.split("-"))
                 .forEach(menu -> addMenu(menu[0].trim(), Integer.parseInt(menu[1].trim())));
-        validateOrderCount();
+        validateTotalOrderCount();
         validateOnlyDrinks();
     }
 
@@ -50,7 +50,7 @@ public class Orders {
 
     private void addMenu(String name, int count) {
         Menu menu = Menu.findMenu(name);
-        orders.put(validateDistinctMenu(menu), validateCount(count));
+        orders.put(validateDistinctMenu(menu), validateMenuCount(count));
     }
 
     private Menu validateDistinctMenu(Menu menu) {
@@ -60,14 +60,14 @@ public class Orders {
         return menu;
     }
 
-    private int validateCount(int count) {
+    private int validateMenuCount(int count) {
         if(count < 1) {
             throw new IllegalArgumentException();
         }
         return count;
     }
 
-    private void validateOrderCount() {
+    private void validateTotalOrderCount() {
         if(orders.keySet().stream()
                 .mapToInt(orders::get)
                 .sum() > 20) {
