@@ -27,7 +27,7 @@ public class Today {
     }
 
     public boolean isDDayEvent() {
-        return date <= 25;
+        return date <= CHRISTMAS;
     }
 
     public boolean isWeekDayEvent() {
