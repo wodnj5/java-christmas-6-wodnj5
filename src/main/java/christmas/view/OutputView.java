@@ -44,4 +44,12 @@ public class OutputView {
         System.out.println("<12월 이벤트 배지>");
         System.out.println(output);
     }
+
+    public void printDateFormatError() {
+        System.out.println("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+    }
+
+    public void printOrderFormatError() {
+        System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
 }

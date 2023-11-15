@@ -4,7 +4,6 @@ import christmas.domain.EventManager;
 import christmas.domain.Gift;
 import christmas.domain.Orders;
 import christmas.domain.Today;
-import christmas.view.ErrorMessage;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
@@ -12,16 +11,15 @@ public class Controller {
 
     private final InputView inputView;
     private final OutputView outputView;
-    private final ErrorMessage errorMessage;
     private Today today;
     private Orders orders;
     private Gift gift;
     private EventManager eventManager;
 
-    public Controller(InputView inputView, OutputView outputView, ErrorMessage errorMessage) {
+    public Controller(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.outputView = outputView;
-        this.errorMessage = errorMessage;
+
     }
 
     public void start() {
@@ -69,7 +67,7 @@ public class Controller {
             try {
                 return new Today(inputView.inputDate());
             } catch (IllegalArgumentException e) {
-                errorMessage.printDateFormatError();
+                outputView.printDateFormatError();
             }
         }
     }
@@ -79,7 +77,7 @@ public class Controller {
             try {
                 return new Orders(inputView.inputOrders());
             } catch (IllegalArgumentException e) {
-                errorMessage.printOrderFormatError();
+                outputView.printOrderFormatError();
             }
         }
     }
