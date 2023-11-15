@@ -18,15 +18,14 @@ public class InputView {
     }
 
     private String[] validateOrderFormat(String input) {
-        try {
-            String[] menu = input.split("-");
-            menu[0] = menu[0].trim();
-            menu[1] = menu[1].trim();
-            validateNumbersFormat(menu[1]);
-            return menu;
-        } catch (ArrayIndexOutOfBoundsException e) {
+        String[] menu = input.split("-");
+        if(menu.length != 2) {
             throw new IllegalArgumentException();
         }
+        menu[0] = menu[0].trim();
+        menu[1] = menu[1].trim();
+        validateNumbersFormat(menu[1]);
+        return menu;
     }
 
     private int validateNumbersFormat(String input) {
