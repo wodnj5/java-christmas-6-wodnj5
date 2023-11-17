@@ -3,6 +3,8 @@ package christmas.view;
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class InputView {
     public int inputDate() {
@@ -18,14 +20,11 @@ public class InputView {
     }
 
     private String[] validateOrderFormat(String input) {
-        String[] menu = input.split("-");
-        if(menu.length != 2) {
+        Matcher matcher = Pattern.compile("^.+-\\d+$").matcher(input);
+        if(!matcher.matches()) {
             throw new IllegalArgumentException();
         }
-        menu[0] = menu[0].trim();
-        menu[1] = menu[1].trim();
-        validateNumbersFormat(menu[1]);
-        return menu;
+        return input.split("-");
     }
 
     private int validateNumbersFormat(String input) {
