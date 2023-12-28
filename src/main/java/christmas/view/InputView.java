@@ -7,19 +7,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InputView {
-    public int inputDate() {
+    public static int inputDate() {
         System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
         return validateNumbersFormat(Console.readLine());
     }
 
-    public List<String[]> inputOrders() {
+    public static List<String[]> inputOrders() {
         System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
         return Arrays.stream(Console.readLine().split(","))
-                .map(this::validateOrderFormat)
+                .map(InputView::validateOrderFormat)
                 .toList();
     }
 
-    private String[] validateOrderFormat(String input) {
+    private static String[] validateOrderFormat(String input) {
         Matcher matcher = Pattern.compile("^.+-\\d+$").matcher(input);
         if(!matcher.matches()) {
             throw new IllegalArgumentException();
@@ -27,7 +27,7 @@ public class InputView {
         return input.split("-");
     }
 
-    private int validateNumbersFormat(String input) {
+    private static int validateNumbersFormat(String input) {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {

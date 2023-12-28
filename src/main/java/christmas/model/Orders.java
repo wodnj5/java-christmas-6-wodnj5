@@ -1,8 +1,4 @@
-package christmas.domain;
-
-import static christmas.domain.MenuType.DESSERT;
-import static christmas.domain.MenuType.DRINK;
-import static christmas.domain.MenuType.MAIN_MENU;
+package christmas.model;
 
 import java.util.List;
 import java.util.Map;
@@ -25,14 +21,14 @@ public class Orders {
 
     public int numberOfDessert() {
         return orders.keySet().stream()
-                .filter(menu -> menu.typeEquals(DESSERT))
+                .filter(menu -> menu.typeEquals(MenuType.DESSERT))
                 .mapToInt(orders::get)
                 .sum();
     }
 
     public int numberOfMainMenu() {
         return orders.keySet().stream()
-                .filter(menu -> menu.typeEquals(MAIN_MENU))
+                .filter(menu -> menu.typeEquals(MenuType.MAIN_MENU))
                 .mapToInt(orders::get)
                 .sum();
     }
@@ -75,7 +71,7 @@ public class Orders {
 
     private void validateOnlyDrinks() {
         if(orders.keySet().stream()
-                .allMatch(menu -> menu.typeEquals(DRINK))) {
+                .allMatch(menu -> menu.typeEquals(MenuType.DRINK))) {
             throw new IllegalArgumentException();
         }
     }

@@ -2,10 +2,11 @@ package christmas.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.model.Badge;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class EventBadgeTest {
+public class BadgeTest {
 
     @DisplayName("금액에 따라 다른 배지 이름을 출력한다.")
     @Test
@@ -15,7 +16,7 @@ public class EventBadgeTest {
         String[] results = {"별", "트리", "산타", "없음"};
 
         for(int i = 0; i < numberOfCases ; i++) {
-            assertThat(EventBadge.classifyEventBadge(ints[i])).isEqualTo(results[i]);
+            assertThat(Badge.find(ints[i])).isEqualTo(results[i]);
         }
     }
 }

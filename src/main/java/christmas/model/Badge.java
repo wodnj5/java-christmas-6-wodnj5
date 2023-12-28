@@ -1,6 +1,6 @@
-package christmas.domain;
+package christmas.model;
 
-public enum EventBadge {
+public enum Badge {
 
     STAR("별"),
     TREE("트리"),
@@ -8,11 +8,11 @@ public enum EventBadge {
 
     private final String name;
 
-    EventBadge(String name) {
+    Badge(String name) {
         this.name = name;
     }
 
-    public static String classifyEventBadge(int totalDiscount) {
+    public static String find(int totalDiscount) {
         if(totalDiscount >= 5_000 && totalDiscount < 10_000) {
             return STAR.name;
         }

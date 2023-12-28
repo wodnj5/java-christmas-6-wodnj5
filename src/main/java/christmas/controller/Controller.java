@@ -1,92 +1,52 @@
 package christmas.controller;
 
-import christmas.domain.EventManager;
-import christmas.domain.Gift;
-import christmas.domain.Orders;
-import christmas.domain.Today;
+import christmas.model.Gift;
+import christmas.model.Orders;
+import christmas.model.Date;
+import christmas.service.EventService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
 public class Controller {
+    private final EventService eventService;
 
-    private final InputView inputView;
-    private final OutputView outputView;
-    private Today today;
-    private Orders orders;
-    private Gift gift;
-    private EventManager eventManager;
-
-    public Controller(InputView inputView, OutputView outputView) {
-        this.inputView = inputView;
-        this.outputView = outputView;
-
+    public Controller(EventService eventService) {
+        this.eventService = eventService;
     }
 
-    public void start() {
-        input();
-        calculate();
-        preview();
+    public void run() {
+        OutputView.printHello();
+        Date date = date();
+        Orders orders = order();
+        Gift gift = new Gift(orders);
+        OutputView.printEventPreviewStart();
+        OutputView.printOrders(orders.toString());
+        OutputView.printTotalPrice(orders.totalPrice());
+        OutputView.printGift(gift.toString());
+        eventService.calculate(date, orders, gift);
+        OutputView.printEvents(eventService.getEvents());
+        OutputView.printTotalDiscount(eventService.getTotalDiscount());
+        OutputView.printEstimatedPrice(eventService.getEstimatedPrice(orders, gift));
+        OutputView.printBadge(eventService.getBadge());
     }
 
-    private void input() {
-        outputView.printHello();
-        today = createToday();
-        orders = createOrder();
-    }
-
-    private void calculate() {
-        gift = createGift();
-        eventManager = createEventManager();
-    }
-
-    private void preview() {
-        outputView.printEventPreviewStart();
-        previewOrders();
-        previewGift();
-        previewEvents();
-    }
-
-    private void previewOrders() {
-        outputView.printOrders(orders.toString());
-        outputView.printTotalPrice(orders.totalPrice());
-    }
-
-    private void previewGift() {
-        outputView.printGift(gift.toString());
-    }
-
-    private void previewEvents() {
-        outputView.printEvents(eventManager.toString());
-        outputView.printTotalDiscount(eventManager.totalDiscount());
-        outputView.printEstimatedPrice(eventManager.estimatedPrice());
-        outputView.printEventBadge(eventManager.eventBadgeName());
-    }
-
-    private Today createToday() {
+    private Date date() {
         while(true) {
             try {
-                return new Today(inputView.inputDate());
+                return new Date(InputView.inputDate());
             } catch (IllegalArgumentException e) {
-                outputView.printDateFormatError();
+                OutputView.printDateFormatError();
             }
         }
     }
 
-    private Orders createOrder() {
+    private Orders order() {
         while(true) {
             try {
-                return new Orders(inputView.inputOrders());
+                return new Orders(InputView.inputOrders());
             } catch (IllegalArgumentException e) {
-                outputView.printOrderFormatError();
+                OutputView.printOrderFormatError();
             }
         }
-    }
-
-    private Gift createGift() {
-        return new Gift(orders);
-    }
-
-    private EventManager createEventManager() {
-        return new EventManager(today, orders, gift);
     }
 }

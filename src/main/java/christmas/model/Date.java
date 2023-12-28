@@ -1,8 +1,8 @@
-package christmas.domain;
+package christmas.model;
 
 import java.time.LocalDate;
 
-public class Today {
+public class Date {
 
     private static final int MONDAY = 1;
     private static final int FRIDAY = 5;
@@ -14,8 +14,8 @@ public class Today {
     private final int date;
     private final int day;
 
-    public Today(int date) {
-        validate(date);
+    public Date(int date) {
+        validateDate(date);
         this.date = date;
         day = LocalDate.of(YEAR, MONTH, date)
                 .getDayOfWeek()
@@ -42,7 +42,7 @@ public class Today {
         return day == SUNDAY || date == CHRISTMAS;
     }
 
-    private void validate(int date) {
+    private void validateDate(int date) {
         if(date < 1 || date > 31) {
             throw new IllegalArgumentException();
         }

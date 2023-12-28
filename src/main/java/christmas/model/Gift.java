@@ -1,6 +1,4 @@
-package christmas.domain;
-
-import static christmas.domain.Menu.CHAMPAGNE;
+package christmas.model;
 
 public class Gift {
 
@@ -9,7 +7,7 @@ public class Gift {
 
     public Gift(Orders orders) {
         if(validate(orders.totalPrice())) {
-            menu = CHAMPAGNE;
+            menu = Menu.CHAMPAGNE;
             count = 1;
         }
     }

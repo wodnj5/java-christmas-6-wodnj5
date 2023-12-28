@@ -1,11 +1,12 @@
 package christmas.domain;
 
-import static christmas.domain.Menu.BARBECUE_RIBS;
-import static christmas.domain.Menu.CAESAR_SALAD;
-import static christmas.domain.Menu.ICE_CREAM;
+import static christmas.model.Menu.BARBECUE_RIBS;
+import static christmas.model.Menu.CAESAR_SALAD;
+import static christmas.model.Menu.ICE_CREAM;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import christmas.model.Menu;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
