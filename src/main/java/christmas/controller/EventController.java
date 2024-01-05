@@ -18,7 +18,7 @@ public class EventController {
         VisitDate visitDate = repeatUntilSuccess(this::convertToDate);
         OrderSummary orderSummary = repeatUntilSuccess(this::convertToOrders);
         OutputView.printOrderSummary(orderSummary);
-        OutputView.printEventSummaryStart(visitDate);
+        OutputView.printPreviewStart(visitDate);
         OutputView.printTotalPrice(orderSummary);
         GiftSummary giftSummary = new GiftSummary(orderSummary);
         OutputView.printGift(giftSummary);

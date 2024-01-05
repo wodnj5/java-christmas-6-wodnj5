@@ -15,7 +15,7 @@ public class OutputView {
         System.out.println("<주문 메뉴>\n" + orderSummary.getContents());
     }
 
-    public static void printEventSummaryStart(VisitDate visitDate) {
+    public static void printPreviewStart(VisitDate visitDate) {
         System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n", visitDate.getDate());
     }
 
