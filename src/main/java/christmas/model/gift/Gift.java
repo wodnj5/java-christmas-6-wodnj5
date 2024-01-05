@@ -1,9 +1,9 @@
-package christmas.model.benefits;
+package christmas.model.gift;
 
-import static christmas.model.orders.Menu.CHAMPAGNE;
-import static christmas.model.orders.Menu.NO_MENU;
+import static christmas.model.order.Menu.CHAMPAGNE;
+import static christmas.model.order.Menu.NO_MENU;
 
-import christmas.model.orders.Menu;
+import christmas.model.order.Menu;
 import java.util.stream.Stream;
 
 public enum Gift {
@@ -27,17 +27,15 @@ public enum Gift {
                 .orElse(NO_GIFT);
     }
 
+    public String getMenuName() {
+        return menu.getName();
+    }
+
     public int getCount() {
         return count;
     }
 
     public int getPrice() {
-        return menu.price() * count;
+        return menu.getPrice() * count;
     }
-
-    @Override
-    public String toString() {
-        return menu.getName();
-    }
-
 }

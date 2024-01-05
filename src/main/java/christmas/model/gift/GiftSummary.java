@@ -1,8 +1,8 @@
-package christmas.model.benefits;
+package christmas.model.gift;
 
-import static christmas.model.benefits.Gift.NO_GIFT;
+import static christmas.model.gift.Gift.NO_GIFT;
 
-import christmas.model.orders.OrderSummary;
+import christmas.model.order.OrderSummary;
 
 public class GiftSummary {
     private final Gift gift;
@@ -15,11 +15,10 @@ public class GiftSummary {
         return gift.getPrice();
     }
 
-    @Override
-    public String toString() {
+    public String getContents() {
         if(gift.equals(NO_GIFT)) {
             return "없음\n";
         }
-        return String.format("%s %d개\n", gift, gift.getCount());
+        return gift.getMenuName() + " " + gift.getCount() + "개\n";
     }
 }

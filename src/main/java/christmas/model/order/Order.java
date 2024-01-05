@@ -1,14 +1,14 @@
-package christmas.model.orders;
+package christmas.model.order;
 
 import static christmas.constants.ErrorMessage.ORDER_FORMAT_ERROR;
-import static christmas.model.orders.Menu.NO_MENU;
+import static christmas.model.order.Menu.NO_MENU;
 
 public class Order {
     private final Menu menu;
     private final int count;
 
     public Order(String name, int count) {
-        Menu menu = Menu.decideMenuBy(name);
+        Menu menu = Menu.findMenuBy(name);
         validateMenu(menu);
         this.menu = menu;
         validateCount(count);
@@ -32,15 +32,14 @@ public class Order {
     }
 
     public int getPrice() {
-        return menu.price() * count;
+        return menu.getPrice() * count;
     }
 
     public boolean isMenuInCategory(Category category) {
         return category.contains(menu);
     }
 
-    @Override
-    public String toString() {
-        return String.format("%s %d개\n", menu, count);
+    public String getContents() {
+        return menu.getName() + " " + count + "개\n";
     }
 }

@@ -1,4 +1,4 @@
-package christmas.model.benefits;
+package christmas.model.event;
 
 import java.util.stream.Stream;
 
@@ -23,8 +23,7 @@ public enum Badge {
                 .orElse(NO_BADGE);
     }
 
-    @Override
-    public String toString() {
+    public String getName() {
         return name;
     }
 }

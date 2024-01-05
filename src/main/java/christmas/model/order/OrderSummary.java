@@ -1,9 +1,9 @@
-package christmas.model.orders;
+package christmas.model.order;
 
 import static christmas.constants.ErrorMessage.ORDER_FORMAT_ERROR;
-import static christmas.model.orders.Category.DESSERT;
-import static christmas.model.orders.Category.DRINK;
-import static christmas.model.orders.Category.MAIN_MENU;
+import static christmas.model.order.Category.DESSERT;
+import static christmas.model.order.Category.DRINK;
+import static christmas.model.order.Category.MAIN_MENU;
 
 import java.util.List;
 
@@ -53,10 +53,9 @@ public class OrderSummary {
         return getTotalPrice() < 10_000;
     }
 
-    @Override
-    public String toString() {
+    public String getContents() {
         StringBuilder sb = new StringBuilder();
-        orders.forEach(sb::append);
+        orders.forEach(o -> sb.append(o.getContents()));
         return sb.toString();
     }
 }

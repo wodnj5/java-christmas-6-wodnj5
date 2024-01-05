@@ -1,7 +1,8 @@
-package christmas.model.benefits;
+package christmas.model.event;
 
 import christmas.model.VisitDate;
-import christmas.model.orders.OrderSummary;
+import christmas.model.gift.GiftSummary;
+import christmas.model.order.OrderSummary;
 import org.assertj.core.util.TriFunction;
 
 public enum Event {
@@ -44,8 +45,7 @@ public enum Event {
         return discount.apply(visitDate, orderSummary, giftSummary);
     }
 
-    @Override
-    public String toString() {
+    public String getName() {
         return name;
     }
 }

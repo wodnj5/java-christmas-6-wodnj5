@@ -1,4 +1,4 @@
-package christmas.model.orders;
+package christmas.model.order;
 
 import java.util.stream.Stream;
 
@@ -25,7 +25,7 @@ public enum Menu {
         this.price = price;
     }
 
-    public static Menu decideMenuBy(String name) {
+    public static Menu findMenuBy(String name) {
         return Stream.of(Menu.values())
                 .filter(m -> m.name.equals(name))
                 .findFirst()
@@ -36,12 +36,7 @@ public enum Menu {
         return name;
     }
 
-    public int price() {
+    public int getPrice() {
         return price;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 }

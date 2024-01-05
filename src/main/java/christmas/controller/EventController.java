@@ -1,10 +1,10 @@
 package christmas.controller;
 
-import christmas.model.orders.Order;
-import christmas.model.orders.OrderSummary;
+import christmas.model.order.Order;
+import christmas.model.order.OrderSummary;
 import christmas.model.VisitDate;
-import christmas.model.benefits.EventSummary;
-import christmas.model.benefits.GiftSummary;
+import christmas.model.event.EventSummary;
+import christmas.model.gift.GiftSummary;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.List;
@@ -13,11 +13,19 @@ import java.util.stream.Stream;
 
 public class EventController {
     public void run() {
+        OutputView.printHello();
         VisitDate visitDate = repeatUntilSuccess(this::convertToDate);
         OrderSummary orderSummary = repeatUntilSuccess(this::convertToOrders);
+        OutputView.printOrderSummary(orderSummary);
+        OutputView.printEventSummaryStart(visitDate);
+        OutputView.printTotalPrice(orderSummary);
         GiftSummary giftSummary = new GiftSummary(orderSummary);
+        OutputView.printGift(giftSummary);
         EventSummary eventSummary = new EventSummary(visitDate, orderSummary, giftSummary);
-        OutputView.printContents(orderSummary, giftSummary, eventSummary);
+        OutputView.printEventSummary(eventSummary);
+        OutputView.printTotalDiscount(eventSummary);
+        OutputView.printExpectDiscount(orderSummary, giftSummary, eventSummary);
+        OutputView.printBadge(eventSummary);
     }
 
     private VisitDate convertToDate() {
