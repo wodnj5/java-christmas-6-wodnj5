@@ -1,6 +1,7 @@
 package christmas.view;
 
 import christmas.model.VisitDate;
+import christmas.model.badge.BadgeSummary;
 import christmas.model.event.EventSummary;
 import christmas.model.order.OrderSummary;
 import christmas.model.gift.GiftSummary;
@@ -38,8 +39,8 @@ public class OutputView {
         System.out.printf("<할인 후 예상 결제 금액>\n%,d원\n\n", orderSummary.getTotalPrice() - eventSummary.getTotalDiscount() - giftSummary.getPrice());
     }
 
-    public static void printBadge(EventSummary eventSummary) {
-        System.out.println("<12월 이벤트 배지>\n" + eventSummary.getBadge().getName());
+    public static void printBadge(BadgeSummary badgeSummary) {
+        System.out.println("<12월 이벤트 배지>\n" + badgeSummary.getContents());
     }
 
     public static void printError(IllegalArgumentException e) {

@@ -1,5 +1,6 @@
 package christmas.model.event;
 
+import christmas.model.badge.Badge;
 import christmas.model.VisitDate;
 import christmas.model.gift.GiftSummary;
 import christmas.model.order.OrderSummary;

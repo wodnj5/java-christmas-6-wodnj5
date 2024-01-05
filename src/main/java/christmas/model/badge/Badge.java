@@ -1,4 +1,4 @@
-package christmas.model.event;
+package christmas.model.badge;
 
 import java.util.stream.Stream;
 

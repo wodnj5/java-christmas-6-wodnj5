@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.model.badge.BadgeSummary;
 import christmas.model.order.Order;
 import christmas.model.order.OrderSummary;
 import christmas.model.VisitDate;
@@ -25,7 +26,8 @@ public class EventController {
         OutputView.printEventSummary(eventSummary);
         OutputView.printTotalDiscount(eventSummary);
         OutputView.printExpectDiscount(orderSummary, giftSummary, eventSummary);
-        OutputView.printBadge(eventSummary);
+        BadgeSummary badgeSummary = new BadgeSummary(eventSummary);
+        OutputView.printBadge(badgeSummary);
     }
 
     private VisitDate convertToDate() {
