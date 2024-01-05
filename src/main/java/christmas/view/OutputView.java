@@ -1,55 +1,70 @@
 package christmas.view;
 
+import christmas.model.benefits.EventSummary;
+import christmas.model.orders.OrderSummary;
+import christmas.model.benefits.GiftSummary;
+
 public class OutputView {
 
-    public static void printHello() {
-        System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
+    public static void printContents(OrderSummary orderSummary, GiftSummary giftSummary, EventSummary eventSummary) {
+        printHello();
+        printOrders(orderSummary);
+        printBenefitStart();
+        printTotalPrice(orderSummary);
+        printGiftEvent(giftSummary);
+        printBenefits(eventSummary);
+        printTotalDiscount(eventSummary);
+        printExpectDiscount(orderSummary, eventSummary, giftSummary);
+        printBadge(eventSummary);
     }
 
-    public static void printOrders(String output) {
+    private static void printHello() {
+        System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.\n");
+    }
+
+    private static void printOrders(OrderSummary orderSummary) {
         System.out.println("<주문 메뉴>");
-        System.out.println(output);
+        System.out.println(orderSummary);
     }
 
-    public static void printEventPreviewStart() {
-        System.out.println("12월 3일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+    private static void printBenefitStart() {
+        System.out.println("12월 3일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n");
     }
 
-    public static void printTotalPrice(int output) {
+    private static void printTotalPrice(OrderSummary orderSummary) {
         System.out.println("<할인 전 총주문 금액>");
-        System.out.printf("%,d원\n\n" ,output);
+        System.out.printf("%,d원\n", orderSummary.getTotalPrice());
+        System.out.println();
     }
 
-    public static void printGift(String output) {
+    private static void printGiftEvent(GiftSummary giftSummary) {
         System.out.println("<증정 메뉴>");
-        System.out.println(output);
+        System.out.println(giftSummary);
     }
 
-    public static void printEvents(String output) {
+    private static void printBenefits(EventSummary eventSummary) {
         System.out.println("<혜택 내역>");
-        System.out.println(output);
+        System.out.println(eventSummary);
     }
 
-    public static void printTotalDiscount(int output) {
+    private static void printTotalDiscount(EventSummary eventSummary) {
         System.out.println("<총혜택 금액>");
-        System.out.printf("-%,d원\n\n", output);
+        System.out.printf("%,d원\n", eventSummary.getTotalDiscount());
+        System.out.println();
     }
 
-    public static void printEstimatedPrice(int output) {
+    private static void printExpectDiscount(OrderSummary orderSummary, EventSummary eventSummary, GiftSummary giftSummary) {
         System.out.println("<할인 후 예상 결제 금액>");
-        System.out.printf("%,d원\n\n", output);
+        System.out.printf("%,d원\n", orderSummary.getTotalPrice() - eventSummary.getTotalDiscount() - giftSummary.getPrice());
+        System.out.println();
     }
 
-    public static void printBadge(String output) {
+    private static void printBadge(EventSummary eventSummary) {
         System.out.println("<12월 이벤트 배지>");
-        System.out.println(output);
+        System.out.println(eventSummary.getBadge());
     }
 
-    public static void printDateFormatError() {
-        System.out.println("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
-    }
-
-    public static void printOrderFormatError() {
-        System.out.println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    public static void printError(IllegalArgumentException e) {
+        System.out.println(e.getMessage());
     }
 }
