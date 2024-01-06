@@ -1,41 +1,32 @@
 package christmas.model.event;
 
 import christmas.model.VisitDate;
-import christmas.model.gift.GiftSummary;
-import christmas.model.order.OrderSummary;
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.stream.Stream;
+import christmas.model.order.Orders;
+import java.util.List;
 
 public class EventSummary {
-    private final Map<Event, Integer> events;
 
-    public EventSummary(VisitDate visitDate, OrderSummary orderSummary, GiftSummary giftSummary) {
-        events = new TreeMap<>();
-        if(!orderSummary.noBenefit()) {
-            Stream.of(Event.values())
-                    .forEach(e -> events.put(e, e.applyDiscount(visitDate, orderSummary, giftSummary)));
-        }
+    private Gift gift;
+    private List<Event> events;
+    private Badge badge;
+
+    public void apply(VisitDate visitDate, Orders orders) {
+        gift = Gift.findGiftBy(orders.getTotalPrice());
+        events = Event.findApplicableEventsBy(visitDate, orders);
+        badge = Badge.decideBadgeBy(events.stream()
+                .mapToInt(e -> e.calculate(visitDate, orders))
+                .sum() + gift.getPrice());
     }
 
-    public int getTotalDiscount() {
-        return events.keySet().stream()
-                .mapToInt(events::get)
-                .sum();
+    public Gift getGift() {
+        return gift;
     }
 
-    public String getContents() {
-        if(events.isEmpty()) {
-            return "없음\n";
-        }
-        StringBuilder sb = new StringBuilder();
-        events.keySet().stream()
-                .filter(e -> !events.get(e).equals(0))
-                .forEach(e -> sb.append(String.format("%s: -%,d원\n", e.getName(), events.get(e))));
-        return sb.toString();
+    public List<Event> getEvents() {
+        return events;
     }
 
-    public String getBadgeName() {
-        return Badge.decideBadgeBy(getTotalDiscount()).getName();
+    public Badge getBadge() {
+        return badge;
     }
 }

@@ -7,10 +7,10 @@ import static christmas.model.order.Category.MAIN_MENU;
 
 import java.util.List;
 
-public class OrderSummary {
+public class Orders {
     private final List<Order> orders;
 
-    public OrderSummary(List<Order> orders) {
+    public Orders(List<Order> orders) {
         validateOnlyDrinks(orders);
         validateTotalOrderCount(orders);
         this.orders = orders;
@@ -31,8 +31,12 @@ public class OrderSummary {
 
     public int getTotalPrice() {
         return orders.stream()
-                .mapToInt(o -> o.getPrice() * o.getCount())
+                .mapToInt(Order::getPrice)
                 .sum();
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     public int getNumberOfDessert() {
@@ -51,11 +55,5 @@ public class OrderSummary {
 
     public boolean noBenefit() {
         return getTotalPrice() < 10_000;
-    }
-
-    public String getContents() {
-        StringBuilder sb = new StringBuilder();
-        orders.forEach(o -> sb.append(o.getContents()));
-        return sb.toString();
     }
 }

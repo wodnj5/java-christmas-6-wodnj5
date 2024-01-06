@@ -1,4 +1,4 @@
-package christmas.model.gift;
+package christmas.model.event;
 
 import static christmas.model.order.Menu.CHAMPAGNE;
 import static christmas.model.order.Menu.NO_MENU;
@@ -20,7 +20,7 @@ public enum Gift {
         this.limit = price;
     }
 
-    public static Gift decideGiftBy(int totalPrice) {
+    public static Gift findGiftBy(int totalPrice) {
         return Stream.of(Gift.values())
                 .filter(g -> totalPrice >= g.limit)
                 .findFirst()

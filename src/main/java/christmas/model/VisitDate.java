@@ -8,8 +8,6 @@ public class VisitDate {
 
     private final static int YEAR = 2023;
     private final static int MONTH = 12;
-    private final static int MONTH_START = 1;
-    private final static int MONTH_END = 31;
     private final static int CHRISTMAS = 25;
     private final static int MONDAY = 1;
     private final static int FRIDAY = 5;
@@ -19,14 +17,15 @@ public class VisitDate {
     private final LocalDate localDate;
 
     public VisitDate(int date) {
-        validateDateRange(date);
-        this.localDate = LocalDate.of(YEAR, MONTH, date);
-    }
-
-    private void validateDateRange(int date) {
-        if(date < MONTH_START || date > MONTH_END) {
+        try {
+            this.localDate = LocalDate.of(YEAR, MONTH, date);
+        } catch (Exception e) {
             throw new IllegalArgumentException(DATE_FORMAT_ERROR);
         }
+    }
+
+    public int getMonth() {
+        return localDate.getMonth().getValue();
     }
 
     public int getDate() {

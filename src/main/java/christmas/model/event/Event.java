@@ -1,48 +1,64 @@
 package christmas.model.event;
 
 import christmas.model.VisitDate;
-import christmas.model.gift.GiftSummary;
-import christmas.model.order.OrderSummary;
-import org.assertj.core.util.TriFunction;
+import christmas.model.order.Orders;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 public enum Event {
-    DDAY_EVENT("크리스마스 디데이 할인", (visitDate, orderSummary, giftSummary) -> {
-        if(visitDate.isDDayEvent()) {
-            return 1000 + (visitDate.getDate() - 1) * 100;
+    DDAY_EVENT("크리스마스 디데이 할인") {
+        @Override
+        public int calculate(VisitDate visitDate, Orders orders) {
+            if(visitDate.isDDayEvent()) {
+                return 1000 + (visitDate.getDate() - 1) * 100;
+            }
+            return 0;
         }
-        return 0;
-    }),
-    WEEKDAY_EVENT("평일 할인", (visitDate, orderSummary, giftSummary) -> {
-        if(visitDate.isWeekDayEvent()) {
-            return 2_023 * orderSummary.getNumberOfDessert();
+    },
+    WEEKDAY_EVENT("평일 할인") {
+        @Override
+        public int calculate(VisitDate visitDate, Orders orders) {
+            if(visitDate.isWeekDayEvent()) {
+                return 2_023 * orders.getNumberOfDessert();
+            }
+            return 0;
         }
-        return 0;
-    }),
-    WEEKEND_EVENT("주말 할인", (visitDate, orderSummary, giftSummary) -> {
-        if(visitDate.isWeekEndEvent()) {
-            return 2_023 * orderSummary.getNumberOfMainMenu();
+    },
+    WEEKEND_EVENT("주말 할인") {
+        @Override
+        public int calculate(VisitDate visitDate, Orders orders) {
+            if(visitDate.isWeekEndEvent()) {
+                return 2_023 * orders.getNumberOfMainMenu();
+            }
+            return 0;
         }
-        return 0;
-    }),
-    SPECIAL_EVENT("특별 할인", (visitDate, orderSummary, giftSummary) -> {
-        if(visitDate.isSpecialEvent()) {
-            return 1_000;
+    },
+    SPECIAL_EVENT("특별 할인") {
+        @Override
+        public int calculate(VisitDate visitDate, Orders orders) {
+            if(visitDate.isSpecialEvent()) {
+                return 1_000;
+            }
+            return 0;
         }
-        return 0;
-    }),
-
-    GIFT_EVENT("증정 이벤트", (visitDate, orderSummary, giftSummary) -> giftSummary.getPrice());
+    };
 
     private final String name;
-    private final TriFunction<VisitDate, OrderSummary, GiftSummary, Integer> discount;
+    public abstract int calculate(VisitDate visitDate, Orders orders);
 
-    Event(String name, TriFunction<VisitDate, OrderSummary, GiftSummary, Integer> discount) {
+    Event(String name) {
         this.name = name;
-        this.discount = discount;
     }
 
-    public int applyDiscount(VisitDate visitDate, OrderSummary orderSummary, GiftSummary giftSummary) {
-        return discount.apply(visitDate, orderSummary, giftSummary);
+    public static List<Event> findApplicableEventsBy(VisitDate visitDate, Orders orders) {
+        List<Event> events = new ArrayList<>();
+        if(!orders.noBenefit()) {
+            Stream.of(Event.values())
+                    .filter(e -> e.calculate(visitDate, orders) > 0)
+                    .forEach(events::add);
+        }
+        return events;
     }
 
     public String getName() {

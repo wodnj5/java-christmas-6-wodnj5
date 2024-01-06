@@ -1,10 +1,9 @@
 package christmas.controller;
 
-import christmas.model.order.Order;
-import christmas.model.order.OrderSummary;
-import christmas.model.VisitDate;
 import christmas.model.event.EventSummary;
-import christmas.model.gift.GiftSummary;
+import christmas.model.order.Order;
+import christmas.model.order.Orders;
+import christmas.model.VisitDate;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.List;
@@ -12,32 +11,33 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class EventController {
+
+    private final InputView inputView;
+    private final OutputView outputView;
+
+    public EventController(InputView inputView, OutputView outputView) {
+        this.inputView = inputView;
+        this.outputView = outputView;
+    }
+
     public void run() {
-        OutputView.printHello();
         VisitDate visitDate = repeatUntilSuccess(this::convertToDate);
-        OrderSummary orderSummary = repeatUntilSuccess(this::convertToOrders);
-        OutputView.printOrderSummary(orderSummary);
-        OutputView.printPreviewStart(visitDate);
-        OutputView.printTotalPrice(orderSummary);
-        GiftSummary giftSummary = new GiftSummary(orderSummary);
-        OutputView.printGift(giftSummary);
-        EventSummary eventSummary = new EventSummary(visitDate, orderSummary, giftSummary);
-        OutputView.printEventSummary(eventSummary);
-        OutputView.printTotalDiscount(eventSummary);
-        OutputView.printExpectDiscount(orderSummary, giftSummary, eventSummary);
-        OutputView.printBadge(eventSummary);
+        Orders orders = repeatUntilSuccess(this::convertToOrders);
+        EventSummary eventSummary = new EventSummary();
+        eventSummary.apply(visitDate, orders);
+        outputView.printEventSummary(visitDate, orders, eventSummary);
     }
 
     private VisitDate convertToDate() {
-        return new VisitDate(InputView.readDate());
+        return new VisitDate(inputView.readDate());
     }
 
-    private OrderSummary convertToOrders() {
-        List<Order> orders = Stream.of(InputView.readOrders())
+    private Orders convertToOrders() {
+        List<Order> orders = Stream.of(inputView.readOrders())
                 .map(o -> o.split("-"))
                 .map(m -> new Order(m[0], Integer.parseInt(m[1])))
                 .toList();
-        return new OrderSummary(orders);
+        return new Orders(orders);
     }
 
     private <T> T repeatUntilSuccess(Supplier<T> supplier) {

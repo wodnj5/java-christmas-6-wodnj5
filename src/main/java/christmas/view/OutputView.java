@@ -1,45 +1,87 @@
 package christmas.view;
 
+import static christmas.model.event.Gift.NO_GIFT;
+
 import christmas.model.VisitDate;
 import christmas.model.event.EventSummary;
-import christmas.model.order.OrderSummary;
-import christmas.model.gift.GiftSummary;
+import christmas.model.order.Orders;
 
 public class OutputView {
-    public static void printHello() {
-        System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.\n");
+
+    public void printEventSummary(VisitDate visitDate, Orders orders, EventSummary eventSummary) {
+        System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
+        System.out.println();
+        System.out.println("<주문 메뉴>");
+        System.out.println(formatOrders(orders));
+        System.out.println(formatVisitDate(visitDate) + "에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
+        System.out.println();
+        System.out.println("<할인 전 총주문 금액>");
+        System.out.println(formatTotalPrice(orders));
+        System.out.println("<증정 메뉴>");
+        System.out.println(formatGift(eventSummary));
+        System.out.println("<혜택 내역>");
+        System.out.println(formatEvents(visitDate, orders, eventSummary));
+        System.out.println("<총혜택 금액>");
+        System.out.println(formatTotalDiscount(visitDate, orders, eventSummary));
+        System.out.println("<할인 후 예상 결제 금액>");
+        System.out.println(formatEstimatedPayment(visitDate, orders, eventSummary));
+        System.out.println("<12월 이벤트 배지>");
+        System.out.println(formatBadge(eventSummary));
     }
 
-    public static void printOrderSummary(OrderSummary orderSummary) {
-        System.out.println("<주문 메뉴>\n" + orderSummary.getContents());
+    private String formatVisitDate(VisitDate visitDate) {
+        return String.format("%d월 %d일", visitDate.getMonth(), visitDate.getDate());
     }
 
-    public static void printPreviewStart(VisitDate visitDate) {
-        System.out.printf("12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n", visitDate.getDate());
+    private String formatOrders(Orders orders) {
+        StringBuilder sb = new StringBuilder();
+        orders.getOrders().forEach(o -> sb.append(String.format("%s %d개\n", o.getMenuName(), o.getCount())));
+        return sb.toString();
     }
 
-    public static void printTotalPrice(OrderSummary orderSummary) {
-        System.out.printf("<할인 전 총주문 금액>\n%,d원\n\n", orderSummary.getTotalPrice());
+    private String formatTotalPrice(Orders orders) {
+        return String.format("%,d원\n", orders.getTotalPrice());
     }
 
-    public static void printGift(GiftSummary giftSummary) {
-        System.out.println("<증정 메뉴>\n" + giftSummary.getContents());
+    private String formatGift(EventSummary eventSummary) {
+        if(eventSummary.getGift().equals(NO_GIFT)) {
+            return "없음";
+        }
+        return String.format("%s %d개\n", eventSummary.getGift().getMenuName(), eventSummary.getGift().getCount());
     }
 
-    public static void printEventSummary(EventSummary eventSummary) {
-        System.out.println("<혜택 내역>\n" + eventSummary.getContents());
+    private String formatEvents(VisitDate visitDate, Orders orders, EventSummary eventSummary) {
+        StringBuilder sb = new StringBuilder();
+        if(!eventSummary.getEvents().isEmpty()) {
+            eventSummary.getEvents().forEach(e -> sb.append(String.format("%s: -%,d원\n", e.getName(), e.calculate(visitDate, orders))));
+        }
+        if(!eventSummary.getGift().equals(NO_GIFT)) {
+            sb.append(String.format("증정 이벤트: -%,d원\n", eventSummary.getGift().getPrice()));
+        }
+        if(sb.isEmpty()) {
+            sb.append("없음");
+        }
+        return sb.toString();
     }
 
-    public static void printTotalDiscount(EventSummary eventSummary) {
-        System.out.printf("<총혜택 금액>\n%,d원\n\n", eventSummary.getTotalDiscount());
+    private String formatTotalDiscount(VisitDate visitDate, Orders orders, EventSummary eventSummary) {
+        return String.format("-%,d원\n",
+                eventSummary.getEvents().stream()
+                        .mapToInt(e -> e.calculate(visitDate, orders))
+                        .sum() + eventSummary.getGift().getPrice()
+        );
     }
 
-    public static void printExpectDiscount(OrderSummary orderSummary, GiftSummary giftSummary, EventSummary eventSummary) {
-        System.out.printf("<할인 후 예상 결제 금액>\n%,d원\n\n", orderSummary.getTotalPrice() - eventSummary.getTotalDiscount() - giftSummary.getPrice());
+    private String formatEstimatedPayment(VisitDate visitDate, Orders orders, EventSummary eventSummary) {
+        return String.format("%,d원\n",
+                orders.getTotalPrice() - eventSummary.getEvents().stream()
+                        .mapToInt(e -> e.calculate(visitDate, orders))
+                        .sum()
+        );
     }
 
-    public static void printBadge(EventSummary eventSummary) {
-        System.out.println("<12월 이벤트 배지>\n" + eventSummary.getBadgeName());
+    private String formatBadge(EventSummary eventSummary) {
+        return eventSummary.getBadge().getName();
     }
 
     public static void printError(IllegalArgumentException e) {

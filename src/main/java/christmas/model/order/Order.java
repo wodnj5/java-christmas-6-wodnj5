@@ -27,6 +27,10 @@ public class Order {
         }
     }
 
+    public String getMenuName() {
+        return menu.getName();
+    }
+
     public int getCount() {
         return count;
     }
@@ -37,9 +41,5 @@ public class Order {
 
     public boolean isMenuInCategory(Category category) {
         return category.contains(menu);
-    }
-
-    public String getContents() {
-        return menu.getName() + " " + count + "개\n";
     }
 }
