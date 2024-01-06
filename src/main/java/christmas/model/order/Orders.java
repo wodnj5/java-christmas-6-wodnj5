@@ -29,14 +29,14 @@ public class Orders {
         }
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
     public int getTotalPrice() {
         return orders.stream()
                 .mapToInt(Order::getPrice)
                 .sum();
-    }
-
-    public List<Order> getOrders() {
-        return orders;
     }
 
     public int getNumberOfDessert() {
@@ -53,7 +53,7 @@ public class Orders {
                 .sum();
     }
 
-    public boolean notEnoughPrice() {
-        return getTotalPrice() < 10_000;
+    public boolean isEnoughTotalPrice() {
+        return getTotalPrice() >= 10_000;
     }
 }

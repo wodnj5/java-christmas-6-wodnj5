@@ -2,6 +2,7 @@ package christmas.model;
 
 import static christmas.constants.ErrorMessage.DATE_FORMAT_ERROR;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 public class VisitDate {
@@ -18,7 +19,7 @@ public class VisitDate {
     public VisitDate(int date) {
         try {
             this.localDate = LocalDate.of(YEAR, MONTH, date);
-        } catch (Exception e) {
+        } catch (DateTimeException e) {
             throw new IllegalArgumentException(DATE_FORMAT_ERROR);
         }
     }

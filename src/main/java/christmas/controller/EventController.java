@@ -23,7 +23,7 @@ public class EventController {
         VisitDate visitDate = repeatUntilSuccess(this::convertToDate);
         Orders orders = repeatUntilSuccess(this::convertToOrders);
         Result result = new Result(visitDate, orders);
-        outputView.printEventSummary(visitDate, orders, result);
+        outputView.printResult(visitDate, orders, result);
     }
 
     private VisitDate convertToDate() {

@@ -53,7 +53,7 @@ public enum Event {
 
     public static List<Event> findEventsBy(VisitDate visitDate, Orders orders) {
         List<Event> events = new ArrayList<>();
-        if(!orders.notEnoughPrice()) {
+        if(orders.isEnoughTotalPrice()) {
             Stream.of(Event.values())
                     .filter(e -> e.calculate(visitDate, orders) > 0)
                     .forEach(events::add);

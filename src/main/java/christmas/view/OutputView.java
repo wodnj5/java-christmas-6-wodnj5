@@ -8,7 +8,7 @@ import christmas.model.order.Orders;
 
 public class OutputView {
 
-    public void printEventSummary(VisitDate visitDate, Orders orders, Result result) {
+    public void printResult(VisitDate visitDate, Orders orders, Result result) {
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
         System.out.println();
         System.out.println("<주문 메뉴>");
