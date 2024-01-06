@@ -16,7 +16,7 @@ public enum Badge {
         this.discount = discount;
     }
 
-    public static Badge decideBadgeBy(int totalDiscount) {
+    public static Badge findBadgeBy(int totalDiscount) {
         return Stream.of(Badge.values())
                 .filter(b -> totalDiscount >= b.discount)
                 .findFirst()

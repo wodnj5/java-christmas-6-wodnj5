@@ -53,7 +53,7 @@ public class Orders {
                 .sum();
     }
 
-    public boolean noBenefit() {
+    public boolean notEnoughPrice() {
         return getTotalPrice() < 10_000;
     }
 }

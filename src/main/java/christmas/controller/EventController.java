@@ -1,6 +1,6 @@
 package christmas.controller;
 
-import christmas.model.event.EventSummary;
+import christmas.model.event.Result;
 import christmas.model.order.Order;
 import christmas.model.order.Orders;
 import christmas.model.VisitDate;
@@ -11,7 +11,6 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class EventController {
-
     private final InputView inputView;
     private final OutputView outputView;
 
@@ -23,9 +22,8 @@ public class EventController {
     public void run() {
         VisitDate visitDate = repeatUntilSuccess(this::convertToDate);
         Orders orders = repeatUntilSuccess(this::convertToOrders);
-        EventSummary eventSummary = new EventSummary();
-        eventSummary.apply(visitDate, orders);
-        outputView.printEventSummary(visitDate, orders, eventSummary);
+        Result result = new Result(visitDate, orders);
+        outputView.printEventSummary(visitDate, orders, result);
     }
 
     private VisitDate convertToDate() {

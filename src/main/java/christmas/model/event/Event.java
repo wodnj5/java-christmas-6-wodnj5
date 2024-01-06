@@ -51,9 +51,9 @@ public enum Event {
         this.name = name;
     }
 
-    public static List<Event> findApplicableEventsBy(VisitDate visitDate, Orders orders) {
+    public static List<Event> findEventsBy(VisitDate visitDate, Orders orders) {
         List<Event> events = new ArrayList<>();
-        if(!orders.noBenefit()) {
+        if(!orders.notEnoughPrice()) {
             Stream.of(Event.values())
                     .filter(e -> e.calculate(visitDate, orders) > 0)
                     .forEach(events::add);

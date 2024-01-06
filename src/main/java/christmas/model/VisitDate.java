@@ -5,7 +5,6 @@ import static christmas.constants.ErrorMessage.DATE_FORMAT_ERROR;
 import java.time.LocalDate;
 
 public class VisitDate {
-
     private final static int YEAR = 2023;
     private final static int MONTH = 12;
     private final static int CHRISTMAS = 25;
