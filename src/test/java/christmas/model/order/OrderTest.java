@@ -1,7 +1,5 @@
 package christmas.model.order;
 
-import christmas.model.order.Category;
-import christmas.model.order.Order;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
