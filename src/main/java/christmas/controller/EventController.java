@@ -43,7 +43,7 @@ public class EventController {
             try {
                 return supplier.get();
             } catch (IllegalArgumentException e) {
-                OutputView.printErrorMessage(e);
+                outputView.printErrorMessage(e);
             }
         }
     }

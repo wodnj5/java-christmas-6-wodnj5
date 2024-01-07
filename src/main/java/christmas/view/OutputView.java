@@ -104,7 +104,7 @@ public class OutputView {
         return badge.getName();
     }
 
-    public static void printErrorMessage(IllegalArgumentException e) {
+    public void printErrorMessage(IllegalArgumentException e) {
         System.out.println("[ERROR] " + e.getMessage());
     }
 }
