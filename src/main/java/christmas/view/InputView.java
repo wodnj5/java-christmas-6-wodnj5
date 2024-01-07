@@ -1,7 +1,7 @@
 package christmas.view;
 
-import static christmas.constants.ErrorMessage.DATE_FORMAT_ERROR;
-import static christmas.constants.ErrorMessage.ORDER_FORMAT_ERROR;
+import static christmas.constants.ErrorMessage.DATE_FORMAT_ERROR_MESSAGE;
+import static christmas.constants.ErrorMessage.ORDER_FORMAT_ERROR_MESSAGE;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.stream.Stream;
@@ -17,20 +17,20 @@ public class InputView {
         return validateOrderFormat(Console.readLine().split(","));
     }
 
+    private int validateNumberFormat(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(DATE_FORMAT_ERROR_MESSAGE);
+        }
+    }
+
     private String[] validateOrderFormat(String[] input) {
         try {
             Stream.of(input).forEach(s -> Integer.parseInt(s.split("-")[1]));
             return input;
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ORDER_FORMAT_ERROR);
-        }
-    }
-
-    private int validateNumberFormat(String input) {
-        try {
-            return Integer.parseInt(input);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(DATE_FORMAT_ERROR);
+            throw new IllegalArgumentException(ORDER_FORMAT_ERROR_MESSAGE);
         }
     }
 }

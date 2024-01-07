@@ -1,6 +1,9 @@
-package christmas.model.event;
+package christmas.model;
 
 import christmas.model.VisitDate;
+import christmas.model.event.Badge;
+import christmas.model.event.Event;
+import christmas.model.event.Gift;
 import christmas.model.order.Orders;
 import java.util.List;
 

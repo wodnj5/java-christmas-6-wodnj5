@@ -1,6 +1,6 @@
 package christmas.controller;
 
-import christmas.model.event.Result;
+import christmas.model.Result;
 import christmas.model.order.Order;
 import christmas.model.order.Orders;
 import christmas.model.VisitDate;
@@ -43,7 +43,7 @@ public class EventController {
             try {
                 return supplier.get();
             } catch (IllegalArgumentException e) {
-                OutputView.printError(e);
+                OutputView.printErrorMessage(e);
             }
         }
     }

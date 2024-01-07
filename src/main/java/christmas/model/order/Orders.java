@@ -1,6 +1,6 @@
 package christmas.model.order;
 
-import static christmas.constants.ErrorMessage.ORDER_FORMAT_ERROR;
+import static christmas.constants.ErrorMessage.ORDER_FORMAT_ERROR_MESSAGE;
 import static christmas.model.order.Category.DESSERT;
 import static christmas.model.order.Category.DRINK;
 import static christmas.model.order.Category.MAIN_MENU;
@@ -19,13 +19,13 @@ public class Orders {
     private void validateOnlyDrinks(List<Order> orders) {
         if(orders.stream()
                 .allMatch(o -> o.isMenuInCategory(DRINK))) {
-            throw new IllegalArgumentException(ORDER_FORMAT_ERROR);
+            throw new IllegalArgumentException(ORDER_FORMAT_ERROR_MESSAGE);
         }
     }
 
     private void validateTotalOrderCount(List<Order> orders) {
         if(orders.stream().mapToInt(Order::getCount).sum() > 20) {
-            throw new IllegalArgumentException(ORDER_FORMAT_ERROR);
+            throw new IllegalArgumentException(ORDER_FORMAT_ERROR_MESSAGE);
         }
     }
 

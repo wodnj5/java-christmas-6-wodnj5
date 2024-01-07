@@ -1,6 +1,6 @@
 package christmas.model.order;
 
-import static christmas.constants.ErrorMessage.ORDER_FORMAT_ERROR;
+import static christmas.constants.ErrorMessage.ORDER_FORMAT_ERROR_MESSAGE;
 import static christmas.model.order.Menu.NO_MENU;
 
 public class Order {
@@ -17,13 +17,13 @@ public class Order {
 
     private void validateMenu(Menu menu) {
         if(menu.equals(NO_MENU)) {
-            throw new IllegalArgumentException(ORDER_FORMAT_ERROR);
+            throw new IllegalArgumentException(ORDER_FORMAT_ERROR_MESSAGE);
         }
     }
 
     private void validateCount(int count) {
         if(count < 1) {
-            throw new IllegalArgumentException(ORDER_FORMAT_ERROR);
+            throw new IllegalArgumentException(ORDER_FORMAT_ERROR_MESSAGE);
         }
     }
 

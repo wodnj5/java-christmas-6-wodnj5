@@ -1,6 +1,6 @@
 package christmas.model;
 
-import static christmas.constants.ErrorMessage.DATE_FORMAT_ERROR;
+import static christmas.constants.ErrorMessage.DATE_FORMAT_ERROR_MESSAGE;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -20,7 +20,7 @@ public class VisitDate {
         try {
             this.localDate = LocalDate.of(YEAR, MONTH, date);
         } catch (DateTimeException e) {
-            throw new IllegalArgumentException(DATE_FORMAT_ERROR);
+            throw new IllegalArgumentException(DATE_FORMAT_ERROR_MESSAGE);
         }
     }
 
